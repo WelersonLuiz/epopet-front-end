@@ -1,12 +1,11 @@
 import './App.css';
 import axios from "axios";
 import React, {useState, useEffect} from "react";
-import Login from '../src/pages/Login';
+import Login from './pages/Login';
+
 
 const UserLogin = () => {
-
   const [userLogin, setUserLogin] = useState([]);
-
   const fetchUserLogin = () => {
     axios.get("http://localhost:8080/client/").then(res =>{
       console.log(res);
@@ -18,30 +17,23 @@ const UserLogin = () => {
   useEffect ( () =>{
 fetchUserLogin();
   }, [] );
-
 return userLogin.map((usersLogin, index) => {
-
   return (
     <div key ={index}>
       {/* <h1>Username: {usersLogin.name}</h1>
       <p>id: {usersLogin.id}</p>
       <p>CPF: {usersLogin.cpf}</p> */}
-
-
-
     </div>
   )
 })
-
-}; // fim de UserLogin
+}; // fim de useEffect
 
 function App() {
   return (
     <div className="App">
     <UserLogin></UserLogin>
+<Login/>
 
-
-  
       {/* <header className="App-header">
         <h1>Tela de Login da shay deu certo? ebaaa</h1>
       </header> */}

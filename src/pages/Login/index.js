@@ -1,11 +1,12 @@
 import React from 'react'
 import './login.css'
 
+
 const Login = () => {
   return (
     <div className="login">
       <h1> aeeeeeee</h1>
-      <head>
+<head>
 <meta charset="UTF-8"></meta>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
       </head>
@@ -31,3 +32,5 @@ const Login = () => {
     </div>
   )
 }
+
+export default Login
