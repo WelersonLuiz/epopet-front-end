@@ -1,8 +1,121 @@
-.login{
-  text-align: center;
+body{
+  margin:0;
+  margin-top: 10vh;
+  height:100vh;
+  background-color: #222222;
+  overflow-y: hidden;
+}
+
+.container{
+  height:100%;
+  padding-top: 70px;
+  /* background: url(./../assets/img_arvores.svg); */
+  background-position-y: -421%;
+  background-position-x: 56%;
+}
+
+.content{
+  height: 580px;
   display: flex;
-  background-color:rgb(54, 121, 54)14, 97);
-  margin: auto;
+  flex-direction: column; 
+  margin-top: 0px;   
+}
+
+.card-login{
+  height: 400px;
+  width: 600px;
+  background-color: white;
+  border-radius: 10px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  margin: 10px auto;
+  margin-bottom: 25px;
+}
+
+.form-login{
+  display: flex;
+  flex-direction: column;
+  font-family: 'Montserrat', sans-serif;
+  color: #7b2dae;
+  width: 75%;
+}
+
+.titulo-card{
+  margin-bottom: 50px;
+  margin-left: 125px ;
+}
+
+input{
+  border: none;
+  border-bottom: 2px solid #7b2dae;
+  margin-bottom: 10px;
+  outline-style: none;
+}
+
+label{
+  margin-bottom: 10px;
+}
+
+.esqueci{
+  display: inline;
+}
+
+.forgot-password{
+  float: right;
+}
+
+.btn-enviar{
+  background: #7b2dae;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  width: 180px;
+  height: 35px;
+  display: block;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: pointer;
+  outline-style: none;
 
 }
 
+button:hover{
+  background: #942FD8;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.cadastra{
+  display: block;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  color: white;
+  font-size: 20px;
+}
+
+.cadastra a{
+  color: white;
+  font-weight: bold;
+}
+
+.loading{
+  position: absolute;
+  top: 0;
+  left: 0;
+  border: 0;
+  background-color: rgba(0,0,0,0.4);
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items :center;
+  display: none;
+}
+
+.img-loading{
+  width: 150px;
+  height: 150px;
+}
