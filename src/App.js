@@ -1,6 +1,7 @@
 import './App.css';
 import axios from "axios";
 import React, {useState, useEffect} from "react";
+import Login from '../src/pages/Login';
 
 const UserLogin = () => {
 
@@ -22,8 +23,12 @@ return userLogin.map((usersLogin, index) => {
 
   return (
     <div key ={index}>
-      <h1>{usersLogin.name}</h1>
-      <p>{usersLogin.id}</p>
+      {/* <h1>Username: {usersLogin.name}</h1>
+      <p>id: {usersLogin.id}</p>
+      <p>CPF: {usersLogin.cpf}</p> */}
+
+
+
     </div>
   )
 })
@@ -36,6 +41,7 @@ function App() {
     <UserLogin></UserLogin>
 
 
+  
       {/* <header className="App-header">
         <h1>Tela de Login da shay deu certo? ebaaa</h1>
       </header> */}
