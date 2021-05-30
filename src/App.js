@@ -1,45 +1,77 @@
 import './App.css';
-import axios from "axios";
-import React, {useState, useEffect} from "react";
-import Login from './pages/Login';
+import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-router-dom"
+
+// Pages
+import Login from "./pages/Login";
+import Dashboard from './pages/Dashboard';
+import Registration from "./pages/Registration";
+import PageNotFound from './pages/PageNotFound';
 
 
-const UserLogin = () => {
-  const [userLogin, setUserLogin] = useState([]);
-  const fetchUserLogin = () => {
-    axios.get("http://localhost:8080/client/").then(res =>{
-      console.log(res);
-     // const data = res.data;
-      setUserLogin(res.data);
+const ApplicationRoutes = {
+  registration: "/registration",
+  dashboard: "/dashboard",
+  notFound: "/404"
+}
+
+class App extends Component {
+  
+  constructor() {
+    super();
+
+    this.state = {
+      loggedInStatus: "NOT_LOGGED_IN",
+      user: {}
+    };
+  }
+  
+  handleLogin = (data) => {
+    this.setState({
+      loggedInStatus: "LOGGED_IN",
+      user: data
     });
-  } //fim de fetchUserLogin
-
-  useEffect ( () =>{
-fetchUserLogin();
-  }, [] );
-return userLogin.map((usersLogin, index) => {
-  return (
-    
-    <div key ={index}>
-      {/* <h1>Username: {usersLogin.name}</h1>
-      <p>id: {usersLogin.id}</p>
-      <p>CPF: {usersLogin.cpf}</p> */}
-    </div>
-  )
-})
-}; // fim de useEffect
-
-function App() {
-  return (
-    <div className="App">
-    <UserLogin></UserLogin>
-<Login/>
-
-      {/* <header className="App-header">
-        <h1>Tela de Login da shay deu certo? ebaaa</h1>
-      </header> */}
-    </div>
-  );
-}// fim de App
+  }
+  
+  handleLogout = () => {
+    this.setState({
+      loggedInStatus: "NOT_LOGGED_IN",
+      user: {}
+    });
+  }
+  
+	render(){
+		return (
+			<div className="App">
+        <Router>
+          <Switch>
+            <Route 
+              exact path="/"
+              render={props => (
+                  <Login
+                    {...props}
+                    handleLogin={this.handleLogin}
+                  />
+              )}
+            />
+            <Route 
+              exact path={ApplicationRoutes.dashboard}
+              render={props => (
+                <Dashboard
+                  {...props}
+                  handleLogout={this.handleLogout}
+                  loggedInStatus={this.state.loggedInStatus}
+                />
+              )}
+            />
+            <Route exact path={ApplicationRoutes.registration} component={Registration}/>
+            <Route exact path={ApplicationRoutes.notFound} component={PageNotFound}/>
+            <Redirect to={ApplicationRoutes.notFound}/>
+          </Switch>
+        </Router>
+			</div>
+		);	
+	}
+}
 
 export default App;
