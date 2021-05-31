@@ -1,62 +1,66 @@
-import './App.css';
+import "./App.css";
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-router-dom"
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 
 // Pages
 import Login from "./pages/Login";
-import Dashboard from './pages/Dashboard';
+import Dashboard from "./pages/Dashboard";
 import Registration from "./pages/Registration";
-import PageNotFound from './pages/PageNotFound';
-
-
-const ApplicationRoutes = {
-  registration: "/registration",
-  dashboard: "/dashboard",
-  notFound: "/404"
-}
+import PageNotFound from "./pages/PageNotFound";
 
 class App extends Component {
-  
   constructor() {
     super();
 
     this.state = {
       loggedInStatus: "NOT_LOGGED_IN",
-      user: {}
+      user: {},
+      routePaths: {
+        registration: "/registration",
+        dashboard: "/dashboard",
+        notFound: "/404",
+      },
     };
   }
-  
+
   handleLogin = (data) => {
     this.setState({
       loggedInStatus: "LOGGED_IN",
-      user: data
+      user: data,
     });
-  }
-  
+  };
+
   handleLogout = () => {
     this.setState({
       loggedInStatus: "NOT_LOGGED_IN",
-      user: {}
+      user: {},
     });
-  }
-  
-	render(){
-		return (
-			<div className="App">
+  };
+
+  render() {
+    return (
+      <div className="App">
         <Router>
           <Switch>
-            <Route 
-              exact path="/"
-              render={props => (
-                  <Login
-                    {...props}
-                    handleLogin={this.handleLogin}
-                  />
+            <Route
+              exact
+              path="/"
+              render={(props) => (
+                <Login 
+                  {...props} 
+                  handleLogin={this.handleLogin} 
+                />
               )}
             />
-            <Route 
-              exact path={ApplicationRoutes.dashboard}
-              render={props => (
+            <Route
+              exact
+              path={this.state.routePaths.dashboard}
+              render={(props) => (
                 <Dashboard
                   {...props}
                   handleLogout={this.handleLogout}
@@ -64,14 +68,27 @@ class App extends Component {
                 />
               )}
             />
-            <Route exact path={ApplicationRoutes.registration} component={Registration}/>
-            <Route exact path={ApplicationRoutes.notFound} component={PageNotFound}/>
-            <Redirect to={ApplicationRoutes.notFound}/>
+            <Route
+              exact
+              path={this.state.routePaths.registration}
+              render={(props) => (
+                <Registration
+                  {...props}
+                  handleLogin={this.handleLogin} 
+                />
+              )}
+            />
+            <Route
+              exact
+              path={this.state.routePaths.notFound}
+              component={PageNotFound}
+            />
+            <Redirect to={this.state.routePaths.notFound} />
           </Switch>
         </Router>
-			</div>
-		);	
-	}
+      </div>
+    );
+  }
 }
 
 export default App;

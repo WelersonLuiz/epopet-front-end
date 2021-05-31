@@ -24,13 +24,13 @@ class Registration extends Component {
     console.log("Call with ", body);
     axios.post(
       "http://localhost:8080/client",
-      body,
-      { withCredentials: true }
+      body
     )
     .then(response => {
       console.log("register response", response);
       if (response.status === 200) {
-        this.props.handleSuccessfulAuth(response.data);
+        this.props.handleLogin(response.data);
+        this.props.history.push("/dashboard");
       }
     })
     .catch(error => {
