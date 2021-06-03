@@ -12,7 +12,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Registration from "./pages/Registration";
 import PageNotFound from "./pages/PageNotFound";
-import noLoginPage from "./pages/noLoginPage";
+import LandingPage from "./pages/LandingPage";
 
 class App extends Component {
   constructor() {
@@ -52,7 +52,7 @@ class App extends Component {
             <Route
               exact
               path="/"
-              Component={noLoginPage}
+              component={LandingPage}
             />
             <Route
               exact
