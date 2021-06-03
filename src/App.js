@@ -12,6 +12,7 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Registration from "./pages/Registration";
 import PageNotFound from "./pages/PageNotFound";
+import noLoginPage from "./pages/noLoginPage";
 
 class App extends Component {
   constructor() {
@@ -21,6 +22,7 @@ class App extends Component {
       loggedInStatus: "NOT_LOGGED_IN",
       user: {},
       routePaths: {
+        login: "/login",
         registration: "/registration",
         dashboard: "/dashboard",
         notFound: "/404",
@@ -50,10 +52,15 @@ class App extends Component {
             <Route
               exact
               path="/"
+              Component={noLoginPage}
+            />
+            <Route
+              exact
+              path={this.state.routePaths.login}
               render={(props) => (
                 <Login 
                   {...props} 
-                  handleLogin={this.handleLogin} 
+                   handleLogin={this.handleLogin} 
                 />
               )}
             />
