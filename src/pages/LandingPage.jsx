@@ -3,10 +3,12 @@ import axios from "axios";
 
 import { Link } from "react-router-dom";
 
+import "./LandingPage.css"
+
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-class noLoginPage extends Component{
+class LandingPage extends Component{
     constructor(props){
         super(props);
     }
@@ -29,9 +31,7 @@ class noLoginPage extends Component{
                     <h1>DIREITA</h1>
 
                 </div>
-                <div className='no_login_centro'>
 
-                </div>
             </div> 
 
         );
@@ -39,4 +39,4 @@ class noLoginPage extends Component{
 
 }
 
-export default noLoginPage;
+export default LandingPage;

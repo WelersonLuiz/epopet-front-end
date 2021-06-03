@@ -52,7 +52,12 @@ class App extends Component {
             <Route
               exact
               path="/"
-              component={LandingPage}
+              render={(props) => (
+                <LandingPage 
+                  {...props} 
+                   handleLogin={this.handleLogin} 
+                />
+              )}
             />
             <Route
               exact

@@ -1,0 +1,38 @@
+.no_login_cabecalho {
+    position: absolute;
+    top: 0%;
+    width: 100%;
+    height: 20%;
+    float: top;
+    background-color: black;
+  }
+  
+  .no_login_esquerda {
+    position: absolute;
+    top: 20%;
+    left:0%;
+    width: 50%;
+    height: 70%;
+    float: left;
+    background-color: red;
+  }
+  .no_login_direita {
+    position: absolute;
+    top: 20%;
+    right: 0%;
+    width: 50%;
+    height: 70%;
+    float: right;
+    background-color: green;
+  }
+  
+  .no_login_rodape {
+    position: absolute;
+    bottom: 0%;
+    width: 100%;
+    height: 10%;
+    float: bottom;
+    background-color: blue;
+  }
+  
+  
