@@ -23,6 +23,9 @@ class Login extends Component {
     axios
       .get("http://localhost:8080/client/email/" + email)
       .then((response) => {
+        if (response.data.email === '' || response.data.password === ''){
+          return 
+        }
         if (response.data.password === password) {
           this.props.handleLogin(response.data);
           this.props.history.push("/dashboard");
@@ -41,54 +44,61 @@ class Login extends Component {
 
   render() {
     
-    const centerChildStyle = {
-      display: "flex",
-      justifyContent: "center",
-    }
+
 
     return (
-      <div style={centerChildStyle}>
-        <Form >
-          
-          <Form.Group >
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                type="email"
-                name="email"
-                placeholder="Email"
-                onChange={this.handleChange}
-                required
-              />
-              <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-              </Form.Text>
-            </Form.Group>
-
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                name="password"
-                placeholder="Password"
-                onChange={this.handleChange}
-                required
-              />
-            </Form.Group>
-
-            <Form.Group controlId="formBasicButton">
-              <Button
-                onClick={this.handleLogin}
-                className="btn btn-secondary btn-sm"
-              >
-                Submit
-              </Button>
-            </Form.Group>
+      <div className='container'>
+          <div>
+            <Link to="/">
+              <div className='container_login_imagem'>
+              </div>
+            </Link>
             
-            <Link to="/registration">Create an account</Link>
-          </Form.Group>
-        
-        </Form>
+
+          <div className='container_login_form'>
+            <div className='container_login_form_welcome'>
+              <h3>Bem vindo</h3>
+            </div>
+            <Form className='container_login_form_preenche'>
+              <Form.Label>Conecte sua conta</Form.Label>
+                  <Form.Group >
+                    <Form.Group controlId="formBasicEmail">
+                      
+                      <Form.Control
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        onChange={this.handleChange}
+                        required
+                      />
+                    </Form.Group>
+
+                    <Form.Group controlId="formBasicPassword">
+                      <Form.Control
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        onChange={this.handleChange}
+                        required
+                      />
+                    </Form.Group>
+
+                    <Form.Group controlId="formBasicButton">
+                      <Button
+                        onClick={this.handleLogin}
+                        className="botao_login"
+                      >Login
+                      </Button>
+                    </Form.Group>
+                    
+                    <Link to="/registration" className='criar_conta'>Criar sua conta</Link>
+
+                    <Link to="/registration" className='esqueceu_senha'>Esqueceu sua senha?</Link>
+                  </Form.Group>
+             </Form>
+
+            </div>
+          </div>
       </div>
     );
   }
