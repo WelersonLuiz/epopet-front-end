@@ -13,6 +13,9 @@ import Dashboard from "./pages/Dashboard";
 import Registration from "./pages/Registration";
 import PageNotFound from "./pages/PageNotFound";
 import LandingPage from "./pages/LandingPage";
+import AboutPage from "./pages/AboutPage";
+import PlanosPage from "./pages/PlanosPage";
+
 
 class App extends Component {
   constructor() {
@@ -26,6 +29,8 @@ class App extends Component {
         registration: "/registration",
         dashboard: "/dashboard",
         notFound: "/404",
+        about: '/sobre',
+        planos:'/planos'
       },
     };
   }
@@ -54,6 +59,26 @@ class App extends Component {
               path="/"
               render={(props) => (
                 <LandingPage 
+                  {...props} 
+                   handleLogin={this.handleLogin} 
+                />
+              )}
+            />
+            <Route
+              exact
+              path={this.state.routePaths.about}
+              render={(props) => (
+                <AboutPage 
+                  {...props} 
+                   handleLogin={this.handleLogin} 
+                />
+              )}
+            />
+            <Route
+              exact
+              path={this.state.routePaths.planos}
+              render={(props) => (
+                <PlanosPage 
                   {...props} 
                    handleLogin={this.handleLogin} 
                 />

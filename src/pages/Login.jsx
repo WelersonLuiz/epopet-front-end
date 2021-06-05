@@ -3,6 +3,7 @@ import axios from "axios";
 
 import { Link } from "react-router-dom";
 import "./Login.css"
+import {Header} from './common'
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -48,10 +49,15 @@ class Login extends Component {
 
 
     return (
-      <div className='container'>
+      <div>
+        <div>
+          <Header/>
+        </div>
+        <div className='container'>
           <div>
             <Link to="/">
               <div className='container_login_imagem'>
+                <div className='AboutPageEsquerdaImg'></div>
               </div>
             </Link>
             
@@ -99,6 +105,7 @@ class Login extends Component {
              </Form>
 
             </div>
+          </div>
           </div>
       </div>
     );
