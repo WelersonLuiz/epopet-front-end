@@ -1,50 +1,15 @@
-.no_login_cabecalho {
-    position: absolute;
-    top: 0%;
-    width: 100%;
-    height: 20%;
-    float: top;
-}
-  
-.no_login_esquerda {
-    position: absolute;
-    top: 20%;
-    left: 0%;
-    width: 50%;
-    height: 60%;
-    float: left;
+.LandingPage {
+    text-align: center;
+
 }
 
-.no_login_esquerda_texto {
+/* .LandingPageHeader {
+    background-image: linear-gradient(to right, green , yellow);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    background-color:red;
-    text-align: justify;
-}
-
-.no_login_direita {
-    position: absolute;
-    top: 20%;
-    right: 0%;
-    width: 50%;
-    height: 60%;
-    float: right;
-
-    
-}
-  
-.no_login_rodape {
-    position: absolute;
-    bottom: 0%;
-    width: 100%;
-    height: 20%;
-    float: bottom;
-}
-
-.no_login_cabecalho_botao_login {
-    position: absolute;
-    top: 50%;
-    right: 20%;
-    border-radius: 25px;
-}
-  
-  
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+} */

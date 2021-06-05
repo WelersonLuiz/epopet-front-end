@@ -10,9 +10,6 @@
   
   .container_login_imagem {
     position: absolute;
-    background: url(../images/login_image.jpeg);
-    background-size: cover;
-    background-position: center;
     left: 20%;
     top: 15%;
     width: 35%;
@@ -22,6 +19,18 @@
     border-top-left-radius: 10%;
     
   }
+  .container_login_imagem_img {
+    position: absolute;
+    left: 10%;
+    right: 10%;
+    top: 10%;
+    bottom: 10%;
+    background: url(../images/login_image.png);
+    background-size: cover;
+    background-position: center;
+  }
+
+  
   
   
   .container_login_form {
@@ -47,6 +56,7 @@
     color: #fff;
     border-top-right-radius: 25px;
     border-bottom-right-radius: 25px;
+    
     
   }
   
