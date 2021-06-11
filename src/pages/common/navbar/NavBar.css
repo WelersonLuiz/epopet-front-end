@@ -1,15 +1,24 @@
-.navbar {
-    display: flex;
-    flex-direction: row;
+.sub_cont_2 {
+  position:relative;
+  width: 50%;
+  height: inherit;
+  left: 50%;
+  /* float: right; */
+  display: flex;
+  /* flex-direction: row; */
+  background-color: blue;
+
   }
   
-  .navbar-item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 30px;
-    color: inherit;
-    text-decoration: inherit;
-    text-transform: uppercase;
-    outline: none;
-  }
+.navbar-item {
+  /* position: relative; */
+  display: flex;
+  justify-content: center;
+  align-items: left;
+  margin-left: 30px;
+  color: inherit;
+  text-decoration: inherit;
+  text-transform: uppercase;
+  outline: none;
+
+}
