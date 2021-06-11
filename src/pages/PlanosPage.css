@@ -2,15 +2,35 @@
     /* background-color: rgb(80,160,255); */
 }
 
+.PlanosTitlePage {
+    position: absolute;
+    top: 5%;
+    left: 40%;
+    right: 40%;
+    width: auto;
+    height: 5%;
+    border: solid 4px;
+    border-color: black;
+}
+
+.PlanosTitleTxt {
+    font-size: xx-large;
+    text-align: center;
+}
+
+
 .PlanosPageEsquerda {
 
     position: absolute;
-    top: 5%;
+    top: 15%;
+    bottom: 15%;
     left: 4%;
     width: 28%;
-    height: 90%;
+    height: auto;
     float: left;
-    background-color: blue;
+    border:solid 4px;
+    border-color: black;
+    border-radius: 50px;
 
 
 }
@@ -18,23 +38,69 @@
 .PlanosPageCentro {
 
     position: absolute;
-    top: 5%;
+    top: 15%;
+    bottom: 15%;
     left: 36%;
     width: 28%;
-    height: 90%;
+    height: auto;
     float: center;
-    background-color: yellow;
+    border:solid 4px;
+    border-color: black;
+    border-radius: 50px;
 
 }
 
 .PlanosPageDireita {
 
     position: absolute;
-    top: 5%;
-    left: 68%;
+    top: 15%;
+    bottom: 15%;
+    right: 4%;
     width: 28%;
-    height: 90%;
-    float: center;
-    background-color: red;
+    height: auto;
+    float: right;
+    border:solid 4px;
+    border-color: black;
+    border-radius: 50px;
+
+
+}
+
+.planoName {
+    position: inherit;
+    top: 10%;
+    left: 5%;
+    right: 5%;
+    width: auto;
+    border: solid 4px;
+    border-color: black;
+}
+
+.descriptionPlano {
+    position: inherit;
+    top: 25%;
+    left: 5%;
+    right: 5%;
+    width: auto;
+    height: 60%;
+    border: solid 4px;
+    border-color: black;
+}
+
+.descriptionPlanoTexto {
+    position: inherit;
+    top: 10%;
+    bottom: 10%;
+    left: 5%;
+    right: 5%;
+    width: auto;
+    height: auto;
+    text-align: justify;
+}
+
+.descriptionPlanoButton {
+    position: inherit;
+    top: 90%;
+    left: 40%;
 
 }

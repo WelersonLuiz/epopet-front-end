@@ -2,14 +2,26 @@
     text-align: center;
 
 }
+.logo_main {
+    background-color: #BDF2ED;
+    position: absolute;
+    max-height: 60%;
+    width: 100%;
+    overflow-y: hidden;
+}
 
-/* .LandingPageHeader {
-    background-image: linear-gradient(to right, green , yellow);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-} */
+.img_logo{
+    position: relative;
+    max-width: 40%;
+    max-height: 10%;
+    margin-top: -6% ;
+    /* margin-right:-5%; */
+    float: right;
+}
+
+.img_nome_logo{
+    position: inherit;
+    max-width: 55%;
+    top: 25%;    
+    left: 8%;
+}

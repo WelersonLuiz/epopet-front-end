@@ -29,8 +29,9 @@ class App extends Component {
         registration: "/registration",
         dashboard: "/dashboard",
         notFound: "/404",
-        about: '/sobre',
-        planos:'/planos'
+        about: '/nos',
+        planos:'/planos',
+        rede_credenciada:'/rede-credenciada'
       },
     };
   }

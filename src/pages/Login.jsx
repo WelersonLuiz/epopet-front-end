@@ -49,19 +49,14 @@ class Login extends Component {
 
 
     return (
-      <div>
-        <div>
-          <Header/>
-        </div>
+      
         <div className='container'>
           <div>
             <Link to="/">
               <div className='container_login_imagem'>
-                <div className='AboutPageEsquerdaImg'></div>
+                <div className='container_login_imagem_img'></div>
               </div>
             </Link>
-            
-
           <div className='container_login_form'>
             <div className='container_login_form_welcome'>
               <h3>Bem vindo</h3>
@@ -107,7 +102,6 @@ class Login extends Component {
             </div>
           </div>
           </div>
-      </div>
     );
   }
 }
