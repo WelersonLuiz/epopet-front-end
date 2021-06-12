@@ -6,7 +6,7 @@ import { CardDeck, Card, Button} from 'react-bootstrap'
 import img_pigmeu from '../images/login_image.png'
 
 
-class AboutPage extends Component{
+class PlansPage extends Component{
     constructor(props){
         super(props);
     }
@@ -73,4 +73,4 @@ class AboutPage extends Component{
 
 }
 
-export default AboutPage;
+export default PlansPage;
