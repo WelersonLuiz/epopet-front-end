@@ -17,6 +17,7 @@
     float: left;
     border-bottom-left-radius: 10%;
     border-top-left-radius: 10%;
+    overflow: hidden;
 
     
   }
@@ -43,7 +44,7 @@
   }
   
   .container_login_form_welcome {
-    position: absolute;
+    position: inherit;
     top: 5%;
     left: 0%;
     background-color: rgb(51, 167, 51);
@@ -52,6 +53,9 @@
     color: #fff;
     border-top-right-radius: 25px;
     border-bottom-right-radius: 25px;
+  }
+  .container_login_form_welcome h3{
+    position: inherit;
   }
   
   .botao_login {
