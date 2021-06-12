@@ -3,10 +3,11 @@ import axios from "axios";
 
 import { Link } from "react-router-dom";
 import "./Login.css"
-import {Header} from './common'
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { Card} from 'react-bootstrap'
+import logo_login from '../images/login_image.png'
 
 class Login extends Component {
   constructor(props) {
@@ -54,7 +55,8 @@ class Login extends Component {
           <div>
             <Link to="/">
               <div className='container_login_imagem'>
-                <div className='container_login_imagem_img'></div>
+                {/* <div className='container_login_imagem_img'></div> */}
+                <Card.Img src={logo_login} style={{maxWidth:"95%",maxHeight:"95%",margin:"2.5%"}}></Card.Img>
               </div>
             </Link>
           <div className='container_login_form'>
