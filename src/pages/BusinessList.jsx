@@ -1,7 +1,8 @@
-import React, { Component } from "react";
+import React, { Component} from "react";
 
 class BusinessList extends Component {
   state = {
+    value:"Clinica laranja",
     business:[
       {id:"1", name: "Clinica Laranja", address:{ street:"Rua da Laranja, nº1", district:" Tiradentes", city: "São Paulo", State:"SP"} },
       {id:"2", name: "Clinica Limão", address:{ street:"Rua do Limão, nº2", district:" Morumbi", city: "São Paulo", State:"SP"} },
@@ -14,19 +15,30 @@ class BusinessList extends Component {
     this.props.handleLogout()
     this.props.history.push("/");
   }
+
+  onChange = e =>{
+    this.setState({value:e.target.value})
+  }
     
   render() {
+    const {value,business} =this.state;
     return (
-      <div>
-        <h1>Selecione uma Clínica </h1>
-        <select>
+      <form>
+        <label>Selecione uma Clínica
+         <select
+         id="business"
+          value={this.state.business.name}
+          onChange={this.onChange}
+         >
           {this.state.business.map(business =>(
-            <option key={business.id} value={business.name}>
+          <option key={business.id} value={business.name}>
               {business.name}
             </option>
           ))}
-        </select>
-      </div>
+         </select>
+        </label>  
+        <p htmlfor="business">{value}</p>
+      </form>
     );
   }
 }
