@@ -16,6 +16,7 @@ import LandingPage from "./pages/LandingPage";
 import AboutPage from "./pages/AboutPage";
 import PlanosPage from "./pages/PlanosPage";
 import BusinessList from "./pages/BusinessList";
+import Pets from "./pages/Pets";
 
 
 class App extends Component {
@@ -32,7 +33,8 @@ class App extends Component {
         notFound: "/404",
         about: '/nos',
         planos:'/planos',
-        businessList:'/rede-referenciada'
+        businessList:'/rede-referenciada',
+        pets:'/pets'
       },
     };
   }
@@ -81,6 +83,16 @@ class App extends Component {
               path={this.state.routePaths.planos}
               render={(props) => (
                 <PlanosPage 
+                  {...props} 
+                   handleLogin={this.handleLogin} 
+                />
+              )}
+            />
+            <Route
+              exact
+              path={this.state.routePaths.pets}
+              render={(props) => (
+                <Pets 
                   {...props} 
                    handleLogin={this.handleLogin} 
                 />
