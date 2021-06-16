@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
+import {Header} from './common'
+import "./BusinessList.css"
 
 class BusinessList extends Component {
   state = {
@@ -43,7 +45,9 @@ class BusinessList extends Component {
 
     return (
       <form>
-        <label>Selecione uma Clínica
+        <Header/>
+        <label className=/* 'container_login_form_welcome' */'container_business_form'>Selecione uma Clínica
+        </label>
          <select
           id="business"
           onChange={this.onChange}
@@ -55,7 +59,7 @@ class BusinessList extends Component {
             </option>
           ))}
          </select>
-        </label>
+       
         
         <p>Name - {this.state.selectedBusiness.name}</p>
         <p>Address - {this.state.selectedBusiness.address}</p>
