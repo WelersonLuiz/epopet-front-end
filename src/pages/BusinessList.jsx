@@ -1,43 +1,61 @@
-import React, { Component} from "react";
+import React, { Component } from "react";
+import axios from "axios";
 
 class BusinessList extends Component {
   state = {
-    value:"Clinica laranja",
-    business:[
-      {id:"1", name: "Clinica Laranja", address:{ street:"Rua da Laranja, nº1", district:" Tiradentes", city: "São Paulo", State:"SP"} },
-      {id:"2", name: "Clinica Limão", address:{ street:"Rua do Limão, nº2", district:" Morumbi", city: "São Paulo", State:"SP"} },
-      {id:"3", name: "Clinica Coco", address:{ street:"Rua do Coco, nº3", district:" Leblon", city: "Rio de Janeiro", State:"RJ"} },
-      {id:"4", name: "Clinica Manga", address:{ street:"Rua da Manga, nº4", district:" Ipanema", city: "Rio de Janeiro", State:"RJ"} }
-    ]
+    selectedBusiness: [],
+    businessList: []
   };
-
+  
   handleLogout = () => {
     this.props.handleLogout()
     this.props.history.push("/");
   }
 
-  onChange = e =>{
-    this.setState({value:e.target.value})
+  onChange = e => {
+    this.state.businessList.filter(business => {
+      if (business.id == e.target.value){
+        this.setState({selectedBusiness:business})        
+      }
+    })
+
   }
-    
+  
+  getBusinessList = () => {
+    axios.get(
+      "http://localhost:8080/business"
+    )
+    .then(response => {
+      this.setState({businessList:response.data})
+    })
+    .catch(error => {
+      console.log("register error", error);
+    });
+  }
+  
+  componentDidMount() {
+    this.getBusinessList();
+  }
+  
   render() {
-    const {value,business} =this.state;
     return (
       <form>
         <label>Selecione uma Clínica
          <select
-         id="business"
-          value={this.state.business.name}
+          id="business"
           onChange={this.onChange}
          >
-          {this.state.business.map(business =>(
-          <option key={business.id} value={business.name}>
+          <option value="" disabled selected>Select Clinic</option>
+          {this.state.businessList.map(business =>(
+            <option key={business.id} value={business.id}>
               {business.name}
             </option>
           ))}
          </select>
-        </label>  
-        <p htmlfor="business">{value}</p>
+        </label>
+        
+        <p>Name - {this.state.selectedBusiness.name}</p>
+        <p>Address - {this.state.selectedBusiness.address}</p>
       </form>
     );
   }
