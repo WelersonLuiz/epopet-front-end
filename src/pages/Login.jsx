@@ -26,6 +26,7 @@ class Login extends Component {
     axios
       .get("http://localhost:8080/client/email/" + email)
       .then((response) => {
+        console.log("register response", response);
         if (response.data.email === '' || response.data.password === ''){
           return 
         }
