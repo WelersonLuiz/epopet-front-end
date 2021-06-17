@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
+import {Header} from './common'
+import "./BusinessList.css"
 
 class BusinessList extends Component {
   state = {
@@ -7,6 +9,7 @@ class BusinessList extends Component {
     businessList: []
   };
   
+
   handleLogout = () => {
     this.props.handleLogout()
     this.props.history.push("/");
@@ -36,15 +39,19 @@ class BusinessList extends Component {
   componentDidMount() {
     this.getBusinessList();
   }
+
   
   render() {
+
     return (
       <form>
-        <label>Selecione uma Clínica
-         <select
+        <Header/>
+        <label className='container_business_form'>Selecione uma Clínica
+        </label>
+        <form className='container_business_select'>
+        <select
           id="business"
-          onChange={this.onChange}
-         >
+          onChange={this.onChange}>
           <option value="" disabled selected>Select Clinic</option>
           {this.state.businessList.map(business =>(
             <option key={business.id} value={business.id}>
@@ -52,10 +59,14 @@ class BusinessList extends Component {
             </option>
           ))}
          </select>
-        </label>
-        
-        <p>Name - {this.state.selectedBusiness.name}</p>
+         <form className='container_name_address'>
+        <p >Name - {this.state.selectedBusiness.name}</p>
         <p>Address - {this.state.selectedBusiness.address}</p>
+        </form>
+        </form>
+       
+        
+        
       </form>
     );
   }
