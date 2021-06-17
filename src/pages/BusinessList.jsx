@@ -46,12 +46,12 @@ class BusinessList extends Component {
     return (
       <form>
         <Header/>
-        <label className=/* 'container_login_form_welcome' */'container_business_form'>Selecione uma Clínica
+        <label className='container_business_form'>Selecione uma Clínica
         </label>
-         <select
+        <form className='container_business_select'>
+        <select
           id="business"
-          onChange={this.onChange}
-         >
+          onChange={this.onChange}>
           <option value="" disabled selected>Select Clinic</option>
           {this.state.businessList.map(business =>(
             <option key={business.id} value={business.id}>
@@ -59,10 +59,14 @@ class BusinessList extends Component {
             </option>
           ))}
          </select>
+         <form className='container_name_address'>
+        <p >Name - {this.state.selectedBusiness.name}</p>
+        <p>Address - {this.state.selectedBusiness.address}</p>
+        </form>
+        </form>
        
         
-        <p>Name - {this.state.selectedBusiness.name}</p>
-        <p>Address - {this.state.selectedBusiness.address}</p>
+        
       </form>
     );
   }
