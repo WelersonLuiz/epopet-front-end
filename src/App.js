@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 
 // Pages
-import Login from "./pages/loginPage/LoginPage";
+import LoginPage from "./pages/loginPage/LoginPage";
 import DashboardPage from "./pages/dashboardPage/DashboardPage";
 import RegistrationPage from "./pages/registrationPage/RegistrationPage";
 import NotFoundPage from "./pages/notFoundPage/NotFoundPage";
@@ -36,7 +36,7 @@ class App extends Component {
         pets: "/pets"
       }
     };
-  }
+  };
 
   handleLogin = (data) => {
     window.$isLoggedIn=true
@@ -50,6 +50,7 @@ class App extends Component {
     this.setState({
       user: {},
     });
+    localStorage.setItem("loggedInStatus","NOT_LOGGED_IN")
   };
   
   render() {
@@ -82,14 +83,24 @@ class App extends Component {
               exact
               path={this.state.routePaths.pets}
               render={(props) => (
-                <Pets {...props} handleLogin={this.handleLogin} />
+                <Pets 
+                  {...props} 
+                   handleLogin={this.handleLogin} 
+                   loggedInStatus={this.state.loggedInStatus}
+                   loginPath={this.state.routePaths.login}
+                   User = {this.state.user}
+                />
               )}
             />
             <Route
               exact
               path={this.state.routePaths.login}
               render={(props) => (
-                <Login {...props} handleLogin={this.handleLogin} />
+                <LoginPage 
+                  {...props} 
+                  dashboardPath={this.state.routePaths.dashboard}
+                  handleLogin={this.handleLogin} 
+                />
               )}
             />
             <Route
@@ -101,6 +112,7 @@ class App extends Component {
                   handleLogout={this.handleLogout}
                   isLoggedIn={this.state.isLoggedIn}
                   loginPath={this.state.routePaths.login}
+                  User = {this.state.user}
                 />
               )}
             />

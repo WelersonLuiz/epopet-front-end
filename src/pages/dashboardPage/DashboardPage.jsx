@@ -12,10 +12,7 @@ class DashboardPage extends Component {
   };
 
   render() {
-    
-    console.log("isLoggedIn ", window.$isLoggedIn);
     if (!window.$isLoggedIn) {
-      console.log("Should Redirect ");
       return (<Redirect to={this.props.loginPath} />)
     };
     return (
