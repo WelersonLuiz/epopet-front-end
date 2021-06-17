@@ -37,7 +37,7 @@ class App extends Component {
         pets:'/pets'
       },
     };
-  }
+  };
 
   handleLogin = (data) => {
     this.setState({
@@ -51,6 +51,7 @@ class App extends Component {
       loggedInStatus: "NOT_LOGGED_IN",
       user: {},
     });
+    localStorage.setItem("loggedInStatus","NOT_LOGGED_IN")
   };
 
   render() {
@@ -95,6 +96,8 @@ class App extends Component {
                 <Pets 
                   {...props} 
                    handleLogin={this.handleLogin} 
+                   loggedInStatus={this.state.loggedInStatus}
+                   User = {this.state.user}
                 />
               )}
             />
@@ -116,6 +119,7 @@ class App extends Component {
                   {...props}
                   handleLogout={this.handleLogout}
                   loggedInStatus={this.state.loggedInStatus}
+                  User = {this.state.user}
                 />
               )}
             />

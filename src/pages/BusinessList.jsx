@@ -1,4 +1,7 @@
 import React, { Component} from "react";
+import {Header} from './common'
+import { CardGroup, Card, Button} from 'react-bootstrap'
+import img_pigmeu from '../images/login_image.png'
 
 class BusinessList extends Component {
   state = {
@@ -23,22 +26,32 @@ class BusinessList extends Component {
   render() {
     const {value,business} =this.state;
     return (
-      <form>
-        <label>Selecione uma Clínica
-         <select
-         id="business"
-          value={this.state.business.name}
-          onChange={this.onChange}
-         >
-          {this.state.business.map(business =>(
-          <option key={business.id} value={business.name}>
-              {business.name}
-            </option>
-          ))}
-         </select>
-        </label>  
-        <p htmlfor="business">{value}</p>
-      </form>
+      <div>
+        <Header/>
+        <div>
+          <form>
+            <label>Selecione uma Clínica
+            <select
+            id="business"
+              value={this.state.business.name}
+              onChange={this.onChange}
+            >
+              {this.state.business.map(business =>(
+              <option key={business.id} value={business.name}>
+                  {business.name}
+                </option>
+              ))}
+            </select>
+            </label>  
+              <Card htmlfor="business" style={{alignItems:"center"}}>
+                <Card.Title>{value}</Card.Title>
+                <Card.Img src={img_pigmeu} style={{maxHeight:"15%",maxWidth:"15%",margin:"1.5 %"}}/>
+                <Card.Subtitle>{value}</Card.Subtitle>
+                
+              </Card>
+          </form>
+        </div>
+      </div>
     );
   }
 }
