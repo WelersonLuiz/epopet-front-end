@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 
-import "./PlanosPage.css"
-import {Header} from './common'
+import "./PlansPage.css"
+import {Header} from '../../components/common'
 import { CardDeck, Card, Button} from 'react-bootstrap'
-import img_pigmeu from '../images/login_image.png'
+import img_pigmeu from '../../images/login_image.png'
 
 
 class PlansPage extends Component{

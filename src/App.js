@@ -8,51 +8,50 @@ import {
 } from "react-router-dom";
 
 // Pages
-import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
-import Registration from "./pages/Registration";
-import PageNotFound from "./pages/PageNotFound";
-import LandingPage from "./pages/LandingPage";
-import AboutPage from "./pages/AboutPage";
-import PlanosPage from "./pages/PlanosPage";
+import Login from "./pages/loginPage/LoginPage";
+import DashboardPage from "./pages/dashboardPage/DashboardPage";
+import RegistrationPage from "./pages/registrationPage/RegistrationPage";
+import NotFoundPage from "./pages/notFoundPage/NotFoundPage";
+import LandingPage from "./pages/landingPage/LandingPage";
+import AboutPage from "./pages/aboutPage/AboutPage";
+import PlanosPage from "./pages/plansPage/PlansPage";
 import BusinessList from "./pages/BusinessList";
 import Pets from "./pages/Pets";
-
 
 class App extends Component {
   constructor() {
     super();
-
+    
     this.state = {
-      loggedInStatus: "NOT_LOGGED_IN",
+      isLoggedIn: false,
       user: {},
       routePaths: {
         login: "/login",
         registration: "/registration",
         dashboard: "/dashboard",
         notFound: "/404",
-        about: '/nos',
-        planos:'/planos',
-        businessList:'/rede-referenciada',
-        pets:'/pets'
-      },
+        about: "/nos",
+        plans: "/planos",
+        businessList: "/rede-referenciada",
+        pets: "/pets"
+      }
     };
   }
 
   handleLogin = (data) => {
+    window.$isLoggedIn=true
     this.setState({
-      loggedInStatus: "LOGGED_IN",
       user: data,
     });
   };
 
   handleLogout = () => {
+    window.$isLoggedIn=false
     this.setState({
-      loggedInStatus: "NOT_LOGGED_IN",
       user: {},
     });
   };
-
+  
   render() {
     return (
       <div className="App">
@@ -62,60 +61,46 @@ class App extends Component {
               exact
               path="/"
               render={(props) => (
-                <LandingPage 
-                  {...props} 
-                   handleLogin={this.handleLogin} 
-                />
+                <LandingPage {...props} handleLogin={this.handleLogin} />
               )}
             />
             <Route
               exact
               path={this.state.routePaths.about}
               render={(props) => (
-                <AboutPage 
-                  {...props} 
-                   handleLogin={this.handleLogin} 
-                />
+                <AboutPage {...props} handleLogin={this.handleLogin} />
               )}
             />
             <Route
               exact
-              path={this.state.routePaths.planos}
+              path={this.state.routePaths.plans}
               render={(props) => (
-                <PlanosPage 
-                  {...props} 
-                   handleLogin={this.handleLogin} 
-                />
+                <PlanosPage {...props} handleLogin={this.handleLogin} />
               )}
             />
             <Route
               exact
               path={this.state.routePaths.pets}
               render={(props) => (
-                <Pets 
-                  {...props} 
-                   handleLogin={this.handleLogin} 
-                />
+                <Pets {...props} handleLogin={this.handleLogin} />
               )}
             />
             <Route
               exact
               path={this.state.routePaths.login}
               render={(props) => (
-                <Login 
-                  {...props} 
-                   handleLogin={this.handleLogin} 
-                />
+                <Login {...props} handleLogin={this.handleLogin} />
               )}
             />
             <Route
               exact
               path={this.state.routePaths.dashboard}
               render={(props) => (
-                <Dashboard
+                <DashboardPage
                   {...props}
                   handleLogout={this.handleLogout}
-                  loggedInStatus={this.state.loggedInStatus}
+                  isLoggedIn={this.state.isLoggedIn}
+                  loginPath={this.state.routePaths.login}
                 />
               )}
             />
@@ -123,26 +108,20 @@ class App extends Component {
               exact
               path={this.state.routePaths.registration}
               render={(props) => (
-                <Registration
-                  {...props}
-                  handleLogin={this.handleLogin} 
-                />
+                <RegistrationPage {...props} handleLogin={this.handleLogin} />
               )}
             />
-             <Route
+            <Route
               exact
               path={this.state.routePaths.businessList}
               render={(props) => (
-                <BusinessList 
-                  {...props} 
-                   handleLogin={this.handleLogin} 
-                />
+                <BusinessList {...props} handleLogin={this.handleLogin} />
               )}
             />
             <Route
               exact
               path={this.state.routePaths.notFound}
-              component={PageNotFound}
+              component={NotFoundPage}
             />
             <Redirect to={this.state.routePaths.notFound} />
           </Switch>

@@ -1,6 +1,6 @@
 .container {
     text-align: center;
-    background-image: url(../images/background_login.png);
+    background-image: url(../../images/background_login.png);
     position: fixed;
     min-width: 100%;
     min-height: 100%;
@@ -23,7 +23,7 @@
   }
  
   .container_login_imagem_img {
-    background-image: url(../images/login_image.png);
+    background-image: url(../../images/login_image.png);
     background-size: contain;
     background-position: center;
     width: 100%;

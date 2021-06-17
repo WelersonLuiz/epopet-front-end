@@ -2,14 +2,14 @@ import React, { Component } from "react";
 import axios from "axios";
 
 import { Link } from "react-router-dom";
-import "./Login.css"
+import "./LoginPage.css"
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { Card} from 'react-bootstrap'
-import logo_login from '../images/login_image.png'
+import { Card } from 'react-bootstrap'
+import logo_login from '../../images/login_image.png'
 
-class Login extends Component {
+class LoginPage extends Component {
   constructor(props) {
     super(props);
 
@@ -109,4 +109,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default LoginPage;
