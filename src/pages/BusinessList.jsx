@@ -1,31 +1,52 @@
+
 import React, { Component} from "react";
 import {Header} from './common'
 import { CardGroup, Card, Button} from 'react-bootstrap'
 import img_pigmeu from '../images/login_image.png'
 
+
 class BusinessList extends Component {
   state = {
-    value:"Clinica laranja",
-    business:[
-      {id:"1", name: "Clinica Laranja", address:{ street:"Rua da Laranja, nº1", district:" Tiradentes", city: "São Paulo", State:"SP"} },
-      {id:"2", name: "Clinica Limão", address:{ street:"Rua do Limão, nº2", district:" Morumbi", city: "São Paulo", State:"SP"} },
-      {id:"3", name: "Clinica Coco", address:{ street:"Rua do Coco, nº3", district:" Leblon", city: "Rio de Janeiro", State:"RJ"} },
-      {id:"4", name: "Clinica Manga", address:{ street:"Rua da Manga, nº4", district:" Ipanema", city: "Rio de Janeiro", State:"RJ"} }
-    ]
+    selectedBusiness: [],
+    businessList: []
   };
+  
 
   handleLogout = () => {
     this.props.handleLogout()
     this.props.history.push("/");
   }
 
-  onChange = e =>{
-    this.setState({value:e.target.value})
+  onChange = e => {
+    this.state.businessList.filter(business => {
+      if (business.id == e.target.value){
+        this.setState({selectedBusiness:business})        
+      }
+    })
+
   }
-    
+  
+  getBusinessList = () => {
+    axios.get(
+      "http://localhost:8080/business"
+    )
+    .then(response => {
+      this.setState({businessList:response.data})
+    })
+    .catch(error => {
+      console.log("register error", error);
+    });
+  }
+  
+  componentDidMount() {
+    this.getBusinessList();
+  }
+
+  
   render() {
-    const {value,business} =this.state;
+
     return (
+
       <div>
         <Header/>
         <div>
