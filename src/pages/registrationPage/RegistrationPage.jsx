@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Form, Modal,Button } from "react-bootstrap";
 import axios from "axios";
+import "./RegistrationPage.css";
 const crypto = require('crypto');
 
 class RegistrationPage extends Component {
@@ -21,7 +22,9 @@ class RegistrationPage extends Component {
       senha:'',
       senha1:'',
       error: {show:false,message:null},
+      sucess: {show:false,message:null},
     };
+    
   }
 
   validarCPF(nr_cpf) {	
@@ -86,6 +89,7 @@ class RegistrationPage extends Component {
         this.handleShow()
       }else{
         console.log('CPF Valido')
+        this.setState({cpf:e.target.value})
       }
     }
   }
@@ -105,6 +109,26 @@ class RegistrationPage extends Component {
           <Modal.Body>{message.message}</Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.handleClose.bind(this)}>
+              OK
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
+    )
+  }
+
+  renderSucesso(message){
+
+    if(message.message === null) return null
+    return (
+      <div>
+        <Modal show={message.show} onHide={this.handleClose.bind(this)} animation={false}>
+          <Modal.Header closeButton>
+            <Modal.Title>Sucesso</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>{message.message}</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.props.history.push('/login')}>
               OK
             </Button>
           </Modal.Footer>
@@ -161,42 +185,42 @@ class RegistrationPage extends Component {
   }
 
   async checkEmail(e){
+    let emailValido = false
 
-    if (!this.validEmail(e.target.value)){
+    console.log('Inicio validacao email')
+    if (!this.validEmail(e.value)){
       console.log('Email Invalido')
     }else{
-
-      axios.get(
-        "http://localhost:8080/client"
+      console.log('Email Válido')
+      await axios.get(
+        "http://localhost:8080/client/email/"+e.value
       )
       .then(response => {
+        console.log("Retorno: ")
+        console.log(response.data)
     
-        var existe = 0
-        response.data.map(client => {
-          if (client.email === e.target.value){
-            existe += 1
-          }else{
-
-          }
-        }
-        )
-        if (existe !== 0){
-          this.setState({error:{show:this.state.error.show,message:'Email já está sendo usado.'}})
-          this.handleShow()
-        }else{
-          this.setState ({email:e.target.value})
-          console.log(this.state.email)
-        }
+        this.setState({error:{show:this.state.error.show,message:'Email já está sendo usado.'}})
+        this.handleShow()
+        emailValido = false
       })
       .catch(error => {
-        console.log("register error", error);
-        this.setState({error:{show:this.state.error.show,message:'Ocorreu um erro.'}})
-        this.handleShow()
+        if (error.response.data.errorCode === 1){
+          this.state['email'] = e.value
+          console.log('Email a ser cadastrado: ')
+          console.log(this.state.email)
+          emailValido = true
+        }else{
+          console.log("register error", error);
+          this.setState({error:{show:this.state.error.show,message:'Ocorreu um erro.'}})
+          this.handleShow()
+          emailValido = false
+      }
   
       });
 
     }
 
+  return emailValido;
     
   }
 
@@ -221,80 +245,124 @@ class RegistrationPage extends Component {
 
 
   async handleFormCompleted (e) {
+    e.preventDefault();
+    console.log('Chama validador de email')
+    var emailValida = await this.checkEmail(e.target[10])
+    console.log(emailValida)
+    if (!emailValida){
+
+    }else{
+    console.log('Validacao Finalizada')
     if(this.state.senha !== this.state.senha1){
       await this.setState({error:{show:this.state.error.show,message:'Confirmação de senha não confere com a senha'}})
       this.handleShow()
-    }
+    }else{
 
     let body = {
       name:this.state.name,
       email:this.state.email,
       password:this.state.senha,
       cpf:this.state.cpf,
-
-
     }
+    console.log("Call State",this.state)
+    console.log("Call with ", body);
     axios.post(
-      "http://localhost:8080/client", body
+      "http://localhost:8080/client",
+      body
     )
-
+    .then(response => {
+      console.log("register response", response);
+      if (response.status === 200) {
+        this.setState({error:{show:this.state.error.show,message:'Cadastro realizado com sucesso'}})
+        this.handleShow()
+        // this.props.history.push("/login");
+        console.log(response.data)
+        console.log('Cadastro realizado com sucesso')
+      }
+    })
+    .catch(error => {
+      console.log("register error", error);
+      this.setState({error:{show:this.state.error.show,message:'Ocorreu um erro.'}})
+      this.handleShow()
+    });
+  }
+  }
   }
   render() {
     return (
       <div>
         {this.renderAlert(this.state.error)}
-        <Form style={{position:'relative',maxHeight:'50%',maxWidth:'50%'}} >
-          <Form.Group className="mb-3" controlId="formBasicName">
-            <Form.Label>Nome:</Form.Label>
-            <Form.Control name='name' type="string" placeholder="Coloque seu nome aqui" required onChange={this.checkName} />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicCPF">
-            <Form.Label>CPF:</Form.Label>
-            <Form.Control name='cpf' type="string" placeholder="Coloque seu CPF aqui" required onChange={this.checkCPF.bind(this)}/>
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicDateofBirth">
-            <Form.Label>Data de Nascimento:</Form.Label>
-            <Form.Control name='cpf' type="date" required onChange={this.checkDateBirth.bind(this)}/>
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicCEP" >
-            <Form.Label>CEP:</Form.Label>
-            <Form.Control name='cep' type="string" placeholder="Coloque seu CEP" required onChange={this.getDetailAdress.bind(this)} />
-          </Form.Group>
-          <Form.Group className="mb-3"  controlId="formBasicUF" onChange={this.setAddress.bind(this)}>
-            <Form.Label>Estado:</Form.Label>
-            <Form.Control name='state' defaultValue={this.state.address.state} type="string" required onChange={this.setAddress.bind(this)}/>
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicCidade">
-            <Form.Label>Cidade:</Form.Label>
-            <Form.Control name='city' defaultValue={this.state.address.city}type="string" required onChange={this.setAddress.bind(this)}/>
-          </Form.Group>
-          <Form.Group className="mb-3"  controlId="formBasicBairro">
-            <Form.Label>Bairro:</Form.Label>
-            <Form.Control name='district' defaultValue={this.state.address.district}type="string" required onChange={this.setAddress.bind(this)}/>
-          </Form.Group>
-          <Form.Group className="mb-3"  controlId="formBasicEndereco">
-            <Form.Label>Endereco:</Form.Label>
-            <Form.Control name='address' defaultValue={this.state.address.address} type="string" required onChange={this.setAddress.bind(this)}/>
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicNumero">
-            <Form.Label>Numero:</Form.Label>
-            <Form.Control name='numero' type="string" placeholder="Coloque o número da sua residência" requiredonChange={this.setAddress.bind(this)}/>
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Email:</Form.Label>
-            <Form.Control name='email' type="email" placeholder="Coloque seu email" required onChange={this.checkEmail.bind(this)}/>
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Senha:</Form.Label>
-            <Form.Control name='password' type="password" placeholder="Coloque a senha" required onChange={this.setPassword.bind(this)}/>
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicPasswordConf">
-            <Form.Label>Confirmação de senha:</Form.Label>
-            <Form.Control name='password1' type="password" placeholder="Coloque a senha novamente" required onChange={this.setPassword.bind(this)}/>
-          </Form.Group>
-          <Button variant="primary" type='subimit' onClick={this.handleFormCompleted.bind(this)}>Submit</Button>
+        {this.renderSucesso(this.state.sucess)}
+        <div className='formdiv'>
+          <Form className="form" onSubmit={this.handleFormCompleted.bind(this)}>
+            <div>
+              <Form.Group className="name" controlId="formBasicName">
+                <Form.Label>Nome:</Form.Label>
+                <Form.Control name='name' type="string" placeholder="Coloque seu nome aqui" required onChange={this.checkName} />
+              </Form.Group>
+              <Form.Group className="cpf" controlId="formBasicCPF">
+                <Form.Label>CPF:</Form.Label>
+                <Form.Control name='cpf' type="string" placeholder="Coloque seu CPF aqui" required onChange={this.checkCPF.bind(this)}/>
+              </Form.Group>
+              <Form.Group className="sexo" controlId="formBasicSexo">
+                <Form.Label>Sexo:</Form.Label>
+                <Form.Control name='sexo' as="select" placeholder="Sexo">
+                  <option value='Masculino'>Masculino</option>
+                  <option value='Feminino'>Feminino</option>
+                </Form.Control>
+              </Form.Group>
 
-        </Form>
+            </div>
+            <div>
+              <Form.Group className="databirth" controlId="formBasicDateofBirth">
+                <Form.Label>Data de Nascimento:</Form.Label>
+                <Form.Control name='databirth' type="date" required onChange={this.checkDateBirth.bind(this)}/>
+              </Form.Group>
+              <Form.Group className="cep" controlId="formBasicCEP" >
+                <Form.Label>CEP:</Form.Label>
+                <Form.Control name='cep' type="string" placeholder="Coloque seu CEP" required onChange={this.getDetailAdress.bind(this)} />
+              </Form.Group>
+              <Form.Group className="state"  controlId="formBasicUF" onChange={this.setAddress.bind(this)}>
+                <Form.Label>Estado:</Form.Label>
+                <Form.Control name='state' defaultValue={this.state.address.state} type="string" placeholder="Ex: SP" required onChange={this.setAddress.bind(this)}/>
+              </Form.Group>
+              <Form.Group className="city" controlId="formBasicCidade">
+                <Form.Label>Cidade:</Form.Label>
+                <Form.Control name='city' defaultValue={this.state.address.city}type="string" placeholder="Ex: São Paulo" required onChange={this.setAddress.bind(this)}/>
+              </Form.Group>
+            </div>
+            <div>
+              <Form.Group className="bairro"  controlId="formBasicBairro">
+                <Form.Label>Bairro:</Form.Label>
+                <Form.Control name='district' defaultValue={this.state.address.district}type="string" placeholder="Ex: Bom Retiro" required onChange={this.setAddress.bind(this)}/>
+              </Form.Group>
+              <Form.Group className="address"  controlId="formBasicEndereco">
+                <Form.Label>Endereco:</Form.Label>
+                <Form.Control name='address' defaultValue={this.state.address.address} type="string" placeholder="Ex: Avenida Tiradentes" required onChange={this.setAddress.bind(this)}/>
+              </Form.Group>
+              <Form.Group className="numero" controlId="formBasicNumero">
+                <Form.Label>Numero:</Form.Label>
+                <Form.Control name='numero' type="string" placeholder="Ex: 21" required onChange={this.setAddress.bind(this)}/>
+              </Form.Group>
+            </div>
+            <div>
+              <Form.Group className="email" controlId="formBasicEmail">
+                <Form.Label>Email:</Form.Label>
+                <Form.Control name='email' type="email" placeholder="Coloque seu email" required/>
+              </Form.Group>
+              <Form.Group className="password" controlId="formBasicPassword">
+                <Form.Label>Senha:</Form.Label>
+                <Form.Control name='password' type="password" placeholder="Coloque a senha" required onChange={this.setPassword.bind(this)}/>
+              </Form.Group>
+              <Form.Group className="password1" controlId="formBasicPasswordConf">
+                <Form.Label>Confirmação de senha:</Form.Label>
+                <Form.Control name='password1' type="password" placeholder="Coloque a senha novamente" required onChange={this.setPassword.bind(this)}/>
+              </Form.Group>
+            </div>
+            <Button variant="primary" type='submit'>Submit</Button>
+
+          </Form>
+        </div>
       </div>
     );
   }

@@ -1,0 +1,96 @@
+.formdiv {
+    border: 2px solid #d3d3d3;
+    border-radius: .5em;
+    margin-bottom: 5%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    padding: 1em;
+    text-align: left;
+    width: 90%;
+    height: auto;
+}
+
+.form {
+    padding: 1em;
+  }
+.name {
+    display: inline-block;
+    position: relative;
+    width: 50%;
+}
+
+.cpf{
+    display: inline-block;
+    position: relative;
+    max-width: 40%;
+    padding-inline-start: 5%;
+}
+
+.sexo{
+    display: inline-block;
+    padding-inline-start: 10%;
+
+}
+.databirth{
+    display: inline-block;
+
+}
+
+.cep{
+    display: inline-block;
+    padding-inline-start: 10%;
+}
+
+.state{
+    display: inline-block;
+    padding-inline-start: 10%;
+    width: 20%;
+}
+
+.city{
+    display: inline-block;
+    padding-inline-start: 10%;
+    width: 32.7%;
+}
+
+.bairro{
+    display: inline-block;
+    position: relative;
+    width: 30%;
+}
+
+.address{
+    display: inline-block;
+    padding-inline-start: 10%;
+    position: relative;
+    width: 50%;
+
+}
+
+.numero{
+    display: inline-block;
+    padding-inline-start: 5%;
+    position: relative;
+    width: 15.6%;
+}
+
+.email{
+    display: inline-block;
+    position: relative;
+    width: 35%;
+}
+
+.password{
+    display: inline-block;
+    padding-inline-start: 10%;
+    position: relative;
+    width: 30.35%;
+}
+
+.password1{
+    display: inline-block;
+    padding-inline-start: 10%;
+    position: relative;
+    width: 30.35%;
+}

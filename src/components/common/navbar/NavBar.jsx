@@ -91,7 +91,7 @@ function NavBar() {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleMobileMenuClose = () => {
+  const handleMobileMenuClose = (e) => {
     setMobileMoreAnchorEl(null);
   };
 
@@ -115,8 +115,9 @@ function NavBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem name='profile' onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem name='account' onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem name='pets' onClick={handleMenuClose}>Pets</MenuItem>
     </Menu>
   );
 
