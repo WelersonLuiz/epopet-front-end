@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Form, Modal,Button } from "react-bootstrap";
 import axios from "axios";
 import "./RegistrationPage.css";
+import { format } from "path";
 const crypto = require('crypto');
 
 class RegistrationPage extends Component {
@@ -12,6 +13,7 @@ class RegistrationPage extends Component {
       name:'',
       cpf:'',
       cep:'',
+      dateOfBirth:'',
       address: {state:'',
                 city:'',
                 district:'',
@@ -21,8 +23,7 @@ class RegistrationPage extends Component {
       email:'',
       senha:'',
       senha1:'',
-      error: {show:false,message:null},
-      sucess: {show:false,message:null},
+      alert: {status:null, show:false,message:null}
     };
     
   }
@@ -57,9 +58,9 @@ class RegistrationPage extends Component {
     for (i = 0; i < 10; i ++)		
       add += parseInt(cpf.charAt(i)) * (11 - i);	
     rev = 11 - (add % 11);	
-    if (rev == 10 || rev == 11)	
+    if (rev === 10 || rev === 11)	
       rev = 0;	
-    if (rev != parseInt(cpf.charAt(10)))
+    if (rev !== parseInt(cpf.charAt(10)))
       return false;		
     return true;   
   }
@@ -67,35 +68,71 @@ class RegistrationPage extends Component {
   checkName = (e) => {
     this.setState({[e.target.name]:e.target.value})
   }
-  async handleClose(){
-    await this.setState({error:{show:false,message:null}})
-    console.log(this.state.error)
-  }
 
-  async handleShow(){
-    await this.setState({error:{show:true,message:this.state.error.message}})
-    console.log(this.state.error)
-  }
-
-  async checkCPF (e) {
-    e.preventDefault()
-    if (e.target.value.length != 11){
+  handleClose(e){
+    if(e === 'Erro'){
+      this.setState({alert:{status:'Erro',show:false,message:null}})
     }else{
-      if(this.validarCPF(e.target.value) === false){
-        console.log('CPF Invalido')
-        await this.setState({error:{show:this.state.error.show,message:'CPF Invalido'}})
-        console.log('State now:')
-        console.log(this.state.error)
-        this.handleShow()
-      }else{
-        console.log('CPF Valido')
-        this.setState({cpf:e.target.value})
-      }
+      this.props.history.push('/login')
     }
   }
 
+   handleShow(){
+    this.setState({alert:{status:'Erro', show:true,message:this.state.alert.message}})
+  }
 
+  handleShowSucess(){
+    this.setState({alert:{status:'Sucesso',show:true,message:this.state.alert.message}})
+  }
 
+  async handleCloseSucess(){
+    await this.setState({alert:{status:'Sucesso',show:false,message:null}})
+  }
+
+  async checkCPF (e) {
+    var value = e.target
+    var cpfValido = false
+    if (value == undefined){
+      value = e
+    }
+    if (value.value.length !== 11){
+    }else{
+      if(this.validarCPF(value.value) === false){
+        console.log('CPF Invalido')
+        await this.setState({alert:{status:this.state.alert.status,show:this.state.alert.show,message:'CPF Invalido'}})
+        this.handleShow()
+        cpfValido = false
+      }else{
+        await axios.get(
+          "http://localhost:8080/client"
+        )
+        .then(response => {
+          var existe = false
+
+          response.data.map(response => {
+            if(response.cpf === value.value){
+              existe = true
+            }
+          })
+          if (existe){
+            this.setState({alert:{status:this.state.alert.status,show:this.state.alert.show,message:'Já temos uma conta com esse CPF.'}})
+            this.handleShow()
+            cpfValido = false
+          }
+   
+        })
+        .catch(error => {
+            this.setState({alert:{status:this.state.alert.status,show:this.state.alert.show,message:'Ocorreu um erro.'}})
+            this.handleShow()
+    
+        });
+        this.setState({cpf:value.value})
+        cpfValido = true
+      }
+    }
+
+    return cpfValido
+  }
 
   renderAlert(message){
 
@@ -104,31 +141,11 @@ class RegistrationPage extends Component {
       <div>
         <Modal show={message.show} onHide={this.handleClose.bind(this)} animation={false}>
           <Modal.Header closeButton>
-            <Modal.Title>Erro</Modal.Title>
+            <Modal.Title>{message.status}</Modal.Title>
           </Modal.Header>
           <Modal.Body>{message.message}</Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleClose.bind(this)}>
-              OK
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      </div>
-    )
-  }
-
-  renderSucesso(message){
-
-    if(message.message === null) return null
-    return (
-      <div>
-        <Modal show={message.show} onHide={this.handleClose.bind(this)} animation={false}>
-          <Modal.Header closeButton>
-            <Modal.Title>Sucesso</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>{message.message}</Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={this.props.history.push('/login')}>
+            <Button variant="secondary" onClick={this.handleClose.bind(this,message.status)}>
               OK
             </Button>
           </Modal.Footer>
@@ -138,19 +155,16 @@ class RegistrationPage extends Component {
   }
 
   async getDetailAdress(e){
-    console.log(this.state.address.status)
 
     if (!/[0-9]{5}-[0-9]{3}/.test(e.target.value) & !this.state.address.status){
-      console.log('Não fez a busca')
     }else{
     axios.get(
       //"https://ws.apicep.com/cep.json?code=" + e.target.value
       "https://viacep.com.br/ws/"+e.target.value.replace('-','')+"/json/"
     )
     .then(response => {
-      console.log('Fez a busca')
       if (response.status !== 200){
-        this.setState({error:{show:this.state.error.show,message:'Ocorreu um erro durante a busca do CEP'}})
+        this.setState({alert:{status:this.state.alert.status,show:this.state.alert.show,message:'Ocorreu um erro durante a busca do CEP'}})
         this.handleShow()
       }
       var pseudoState = {
@@ -162,11 +176,9 @@ class RegistrationPage extends Component {
         status:true
       }   
       this.setState({address:pseudoState}) 
-      console.log(this.state.address)
     })
     .catch(error => {
-      console.log("register error", error);
-      this.setState({error:{show:this.state.error.show,message:'Ocorreu um erro.'}})
+      this.setState({alert:{status:this.state.alert.status,show:this.state.alert.show,message:'Ocorreu um erro.'}})
       this.handleShow()
 
     });
@@ -175,7 +187,6 @@ class RegistrationPage extends Component {
 
   setAddress(e){
     this.state.address[e.target.name]=e.target.value
-    console.log(this.state.address)
   }
 
   validEmail = (e) => {
@@ -187,31 +198,24 @@ class RegistrationPage extends Component {
   async checkEmail(e){
     let emailValido = false
 
-    console.log('Inicio validacao email')
     if (!this.validEmail(e.value)){
-      console.log('Email Invalido')
     }else{
-      console.log('Email Válido')
       await axios.get(
         "http://localhost:8080/client/email/"+e.value
       )
       .then(response => {
-        console.log("Retorno: ")
-        console.log(response.data)
     
-        this.setState({error:{show:this.state.error.show,message:'Email já está sendo usado.'}})
+        this.setState({alert:{status:this.state.alert.status,show:this.state.alert.show,message:'Email já está sendo usado.'}})
         this.handleShow()
         emailValido = false
       })
       .catch(error => {
         if (error.response.data.errorCode === 1){
           this.state['email'] = e.value
-          console.log('Email a ser cadastrado: ')
-          console.log(this.state.email)
           emailValido = true
         }else{
-          console.log("register error", error);
-          this.setState({error:{show:this.state.error.show,message:'Ocorreu um erro.'}})
+
+          this.setState({alert:{status:this.state.alert.status,show:this.state.alert.show,message:'Ocorreu um erro.'}})
           this.handleShow()
           emailValido = false
       }
@@ -224,9 +228,26 @@ class RegistrationPage extends Component {
     
   }
 
-  checkDateBirth = (e) => {
-    console.log('aqui')
-    console.log(e.target.value)
+  async checkDateBirth(e){
+    var value = e.target
+    if (value == undefined){
+      value = e
+    }
+    const SegundosNoAnos = 31557600
+    var partDate = value.value.split('-')
+    var dataofbirth = new Date(partDate[0],partDate[1]-1,partDate[2])
+    var today = new Date()
+    today = new Date(today.getUTCFullYear(),today.getMonth(), today.getDate())
+    var SecondsSinceBirth = Math.floor((today-dataofbirth)/1000)
+    if((SecondsSinceBirth/SegundosNoAnos) < 18){
+      await this.setState({alert:{status:this.state.alert.status,show:this.state.alert.show,message:'Para realizar um cadastro no na E-Popet você deve ser maior de 18 anos.'}})
+      this.handleShow()
+      return false
+    }else{
+      this.state['dateOfBirth'] = value.value
+      console.log(this.state)
+      return true
+    }
   }
 
   async setPassword(e){
@@ -238,51 +259,49 @@ class RegistrationPage extends Component {
     if(e.target.name==='password1'){
       await this.setState({senha1:hashPwd})
     }
-    console.log(this.state.senha)
-    console.log(this.state.senha1)
+
   
   }
 
 
   async handleFormCompleted (e) {
     e.preventDefault();
-    console.log('Chama validador de email')
+    console.log(e.target)
     var emailValida = await this.checkEmail(e.target[10])
-    console.log(emailValida)
-    if (!emailValida){
+    var dataBirthValida = await this.checkDateBirth(e.target[3])
+    var cpfValido = await this.checkCPF(e.target[1])
+    if ((!emailValida) | (!dataBirthValida) | (!cpfValido)){
+      console.log('N deveria estar aqui')
 
     }else{
-    console.log('Validacao Finalizada')
+      console.log('Aqui')
     if(this.state.senha !== this.state.senha1){
-      await this.setState({error:{show:this.state.error.show,message:'Confirmação de senha não confere com a senha'}})
+      await this.setState({alert:{status:this.state.alert.status,show:this.state.alert.show,message:'Confirmação de senha não confere com a senha'}})
       this.handleShow()
     }else{
 
     let body = {
       name:this.state.name,
       email:this.state.email,
+      dateOfBirth:this.state.dateOfBirth,
       password:this.state.senha,
       cpf:this.state.cpf,
     }
-    console.log("Call State",this.state)
-    console.log("Call with ", body);
+    console.log(body)
     axios.post(
       "http://localhost:8080/client",
       body
     )
     .then(response => {
-      console.log("register response", response);
       if (response.status === 200) {
-        this.setState({error:{show:this.state.error.show,message:'Cadastro realizado com sucesso'}})
-        this.handleShow()
-        // this.props.history.push("/login");
-        console.log(response.data)
-        console.log('Cadastro realizado com sucesso')
+        this.setState({alert:{status:this.state.alert.status,show:this.state.alert.show,message:'Cadastro realizado com sucesso'}})
+        this.handleShowSucess()
+
       }
     })
     .catch(error => {
-      console.log("register error", error);
-      this.setState({error:{show:this.state.error.show,message:'Ocorreu um erro.'}})
+
+      this.setState({alert:{status:this.state.alert.status,show:this.state.alert.show,message:'Ocorreu um erro.'}})
       this.handleShow()
     });
   }
@@ -290,9 +309,12 @@ class RegistrationPage extends Component {
   }
   render() {
     return (
-      <div>
-        {this.renderAlert(this.state.error)}
-        {this.renderSucesso(this.state.sucess)}
+      <div className='containerCadastro'>
+        <div className='headerCadastro'>
+          <h3>Criando Cadastro</h3>
+        </div>
+        {this.renderAlert(this.state.alert)}
+        {/* {this.renderSucesso(this.state.sucess)} */}
         <div className='formdiv'>
           <Form className="form" onSubmit={this.handleFormCompleted.bind(this)}>
             <div>
@@ -311,8 +333,8 @@ class RegistrationPage extends Component {
                   <option value='Feminino'>Feminino</option>
                 </Form.Control>
               </Form.Group>
-
             </div>
+
             <div>
               <Form.Group className="databirth" controlId="formBasicDateofBirth">
                 <Form.Label>Data de Nascimento:</Form.Label>
@@ -359,7 +381,10 @@ class RegistrationPage extends Component {
                 <Form.Control name='password1' type="password" placeholder="Coloque a senha novamente" required onChange={this.setPassword.bind(this)}/>
               </Form.Group>
             </div>
-            <Button variant="primary" type='submit'>Submit</Button>
+            <div className='buttonDiv'>
+              <p>Todas as informações disponibilizadas são de uso interno. Nenhum informação será disponibilizada para terceiros sem o seu consentimento.</p>
+              <Button className='buttonSubmit' variant="primary" type='submit'>Cadastrar</Button>
+            </div>
 
           </Form>
         </div>
