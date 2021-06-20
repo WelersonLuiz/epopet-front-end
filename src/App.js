@@ -5,6 +5,7 @@ import {
   Route,
   Switch,
   Redirect,
+  NavLink,
 } from "react-router-dom";
 
 // Pages
@@ -16,12 +17,13 @@ import LandingPage from "./pages/landingPage/LandingPage";
 import AboutPage from "./pages/aboutPage/AboutPage";
 import PlanosPage from "./pages/plansPage/PlansPage";
 import BusinessList from "./pages/BusinessList";
-import Pets from "./pages/Pets";
+import PetListPage from "./pages/petsPage/pet-list-page";
+import PetFormPage from "./pages/petsPage/pet-form-page";
 
 class App extends Component {
   constructor() {
     super();
-    
+
     this.state = {
       isLoggedIn: false,
       user: {},
@@ -33,26 +35,25 @@ class App extends Component {
         about: "/nos",
         plans: "/planos",
         businessList: "/rede-referenciada",
-        pets: "/pets"
-      }
+        pets: "/pets",
+      },
     };
-  };
+  }
 
   handleLogin = (data) => {
-    window.$isLoggedIn=true
+    window.$isLoggedIn = true;
     this.setState({
       user: data,
     });
   };
 
   handleLogout = () => {
-    window.$isLoggedIn=false
+    window.$isLoggedIn = false;
     this.setState({
       user: {},
     });
-    localStorage.setItem("loggedInStatus","NOT_LOGGED_IN")
   };
-  
+
   render() {
     return (
       <div className="App">
@@ -81,25 +82,12 @@ class App extends Component {
             />
             <Route
               exact
-              path={this.state.routePaths.pets}
-              render={(props) => (
-                <Pets 
-                  {...props} 
-                   handleLogin={this.handleLogin} 
-                   loggedInStatus={this.state.loggedInStatus}
-                   loginPath={this.state.routePaths.login}
-                   User = {this.state.user}
-                />
-              )}
-            />
-            <Route
-              exact
               path={this.state.routePaths.login}
               render={(props) => (
-                <LoginPage 
-                  {...props} 
+                <LoginPage
+                  {...props}
                   dashboardPath={this.state.routePaths.dashboard}
-                  handleLogin={this.handleLogin} 
+                  handleLogin={this.handleLogin}
                 />
               )}
             />
@@ -112,7 +100,7 @@ class App extends Component {
                   handleLogout={this.handleLogout}
                   isLoggedIn={this.state.isLoggedIn}
                   loginPath={this.state.routePaths.login}
-                  User = {this.state.user}
+                  User={this.state.user}
                 />
               )}
             />
@@ -130,6 +118,9 @@ class App extends Component {
                 <BusinessList {...props} handleLogin={this.handleLogin} />
               )}
             />
+            <Route exact path="/pets" component={PetListPage} />
+            <Route exact path="/pets/new" component={PetFormPage} />
+            <Route exact path="/pets/edit/:_id" component={PetFormPage} />
             <Route
               exact
               path={this.state.routePaths.notFound}

@@ -12,9 +12,6 @@ class DashboardPage extends Component {
   };
 
   render() {
-    if (!window.$isLoggedIn) {
-      return (<Redirect to={this.props.loginPath} />)
-    };
     return (
       <div>
         <NavBar />
