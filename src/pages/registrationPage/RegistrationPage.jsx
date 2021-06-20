@@ -245,7 +245,6 @@ class RegistrationPage extends Component {
       return false
     }else{
       this.state['dateOfBirth'] = value.value
-      console.log(this.state)
       return true
     }
   }
@@ -263,7 +262,6 @@ class RegistrationPage extends Component {
   
   }
 
-
   async handleFormCompleted (e) {
     e.preventDefault();
     console.log(e.target)
@@ -271,10 +269,8 @@ class RegistrationPage extends Component {
     var dataBirthValida = await this.checkDateBirth(e.target[3])
     var cpfValido = await this.checkCPF(e.target[1])
     if ((!emailValida) | (!dataBirthValida) | (!cpfValido)){
-      console.log('N deveria estar aqui')
 
     }else{
-      console.log('Aqui')
     if(this.state.senha !== this.state.senha1){
       await this.setState({alert:{status:this.state.alert.status,show:this.state.alert.show,message:'Confirmação de senha não confere com a senha'}})
       this.handleShow()
@@ -286,6 +282,7 @@ class RegistrationPage extends Component {
       dateOfBirth:this.state.dateOfBirth,
       password:this.state.senha,
       cpf:this.state.cpf,
+      address: JSON.stringify(this.state.address)
     }
     console.log(body)
     axios.post(

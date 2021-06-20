@@ -10,6 +10,8 @@ import Button from "react-bootstrap/Button";
 import { Card } from "react-bootstrap";
 import logo_login from "../../images/login_image.png";
 
+const crypto = require('crypto');
+
 class LoginPage extends Component {
   constructor(props) {
     super(props);
@@ -47,9 +49,14 @@ class LoginPage extends Component {
   }
   
   handleChange = (e) => {
+    if(e.target.name === 'password'){
+      this.setState({
+        [e.target.name]: crypto.createHash('sha1').update(e.target.value).digest('hex'),
+      });
+    }else{
     this.setState({
       [e.target.name]: e.target.value,
-    });
+    });}
   };
 
   render() {
