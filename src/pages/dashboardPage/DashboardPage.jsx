@@ -1,29 +1,21 @@
-import React, { Component } from "react";
+import React, { Component,useContext } from "react";
+import {Context} from "../../components/authContext"
 import { Redirect } from "react-router-dom";
 
-import { NavBar } from "../../components/common";
+import { Header } from "../../components/common";
+import BannerDash from "./componentsDashboard/BannerDashboard"
 
-class DashboardPage extends Component {
-  state = {};
-
-  handleLogout = () => {
-    this.props.handleLogout();
-    this.props.history.push("/");
-  };
-
-  render() {
-    return (
+function DashboardPage(props){
+  const {handleLogout} = useContext(Context)
+  console.log('TEste')
+  return (
       <div>
-        <NavBar />
-
-        <h1>Home</h1>
-        <h1>You're logged in!</h1>
-        <h1>Status: {window.$isLoggedIn}</h1>
-        <button onClick={() => this.handleLogout()}>Logout</button>
-        <button onClick={() => this.props.history.push('/pets')}>Pets</button>
+        <Header/>
+        <BannerDash/>
+        <button onClick={() => handleLogout()}>Logout</button>
+        <button onClick={() => props.history.push('/pets')}>Pets</button>
       </div>
-    );
-  }
+  )
 }
 
 export default DashboardPage;

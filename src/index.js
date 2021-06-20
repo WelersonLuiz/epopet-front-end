@@ -7,7 +7,7 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { PetContextProvider } from './context/pet-context';
 
-window.$isLoggedIn=false;
+localStorage.setItem('StatusLogin',false)
 
 ReactDOM.render(
   <PetContextProvider>
