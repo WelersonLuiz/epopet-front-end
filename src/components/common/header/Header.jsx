@@ -32,7 +32,6 @@ function Header(props) {
           <Nav.Link href="/nos">Nós</Nav.Link>
           <Nav.Link href="/planos">Planos</Nav.Link>
           <Nav.Link href="/rede-referenciada">Rede Referenciada</Nav.Link>
-          <Nav.Link onClick={() => {history.push('/login')}}>Contato</Nav.Link>
           <Nav.Link href="/login">Login</Nav.Link>
         </Nav>
       </Navbar.Collapse>
@@ -54,7 +53,6 @@ function Header(props) {
         <Nav.Link href="/dashboard">Home</Nav.Link>
         <Nav.Link href="/nos">Nós</Nav.Link>
         <Nav.Link href="/rede-referenciada">Rede Referenciada</Nav.Link>
-        <Nav.Link href="/contato">Contato</Nav.Link>
         <Nav.Link onClick={() => handleLogout()}>Sair</Nav.Link>
       </Nav>
     </Navbar.Collapse>
