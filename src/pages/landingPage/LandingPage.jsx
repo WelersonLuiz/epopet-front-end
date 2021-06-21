@@ -36,10 +36,9 @@ class LandingPage extends Component {
         >
           <Card style={{ alignItems: "center", border: "none" }}>
             <Card.Text style={{ textAlign: "right" }}>
-              There variations of passages of Lorem Ipsum available, but the
-              majority have suffered alteration in some form, by injected
-              humour, or randomised words which don't look even slightly
-              believable.
+            Somos um plano de saúde Pet digital para cachorros e gatos. 
+            Oferecemos todo o carinho e proteção que o seu melhor amigo merece sem burocracia
+             e sem surpresas na conta no final do mês. 
             </Card.Text>
             <Button href="/nos" style={{ maxHeight: "20%", maxWidth: "50%" }}>
               Saiba mais

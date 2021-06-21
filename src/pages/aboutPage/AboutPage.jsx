@@ -30,16 +30,12 @@ class AboutPage extends Component {
               <Carousel.Caption>
                 <h3>Quem Somos?</h3>
                 <p style={{ textAlign: "justify" }}>
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry's
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book. It has survived not only five centuries, but
-                  also the leap into electronic typesetting, remaining
-                  essentially unchanged. It was popularised in the 1960s with
-                  the release of Letraset sheets containing Lorem Ipsum
-                  passages, and more recently with desktop publishing software
-                  like Aldus PageMaker including versions of Lorem Ipsum.
+                  O plano de saúde para pets Epopet nasceu com a missão de aprimorar o encaminhamento do cliente à consultas 
+                  e diagnósticos para seu pet, focando na empatia e em, principalmente,
+                   sua confiança para com nossos serviços através do investimento 
+                   do bom atendimento, conforto e agilidade. Ter um plano de saúde é uma forma de retribuir todo o amor
+                    e carinho que o seu pet tem, além de trazer mais tranquilidade e segurança 
+                    para que vocês aproveitem cada momento juntos.
                 </p>
               </Carousel.Caption>
             </Carousel.Item>
@@ -53,11 +49,12 @@ class AboutPage extends Component {
               <Carousel.Caption>
                 <h3>O que fazemos?</h3>
                 <p style={{ textAlign: "justify" }}>
-                  It is a long established fact that a reader will be distracted
-                  by the readable content of a page when looking at its layout.
-                  The point of using Lorem Ipsum is that it has a more-or-less
-                  normal distribution of letters, as opposed to using 'Content
-                  here, content here', making it look like readable English. .
+                  Um só plano para todos os seus pets! Contrate agora um dos 
+                  nossos planos e cadastre todos os seus pets na nossa plataforma online
+                  para agendar consultas e cirurgias na nossa rede credenciada de parceiros! 
+                  Nosso serviço conta com três planos disponíveis, sendo eles o plano Pigmeu (versão Standard),
+                   plano Comum (versão Plus) e plano Nilo (versão Premium).
+                    Confira mais na aba Planos!
                 </p>
               </Carousel.Caption>
             </Carousel.Item>
@@ -71,14 +68,9 @@ class AboutPage extends Component {
               <Carousel.Caption>
                 <h3>Nossos parceiros</h3>
                 <p style={{ textAlign: "justify" }}>
-                  Contrary to popular belief, Lorem Ipsum is not simply random
-                  text. It has roots in a piece of classical Latin literature
-                  from 45 BC, making it over 2000 years old. Richard McClintock,
-                  a Latin professor at Hampden-Sydney College in Virginia,
-                  looked up one of the more obscure Latin words, consectetur,
-                  from a Lorem Ipsum passage, and going through the cites of the
-                  word in classical literature, discovered the undoubtable
-                  source.{" "}
+                Com o Epopet você tem à disposição uma rede de prestadores prontos para atender seu pet.
+                Tenha acesso imediato aos melhores profissionais especializados em cuidados veterinários
+                disponíveis em clínicas e hospitais para um rápido diagnóstico.{" "}
                 </p>
               </Carousel.Caption>
             </Carousel.Item>

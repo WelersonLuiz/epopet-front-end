@@ -29,22 +29,31 @@ class PlansPage extends Component{
                 <Card.Img variant="top" src={img_pigmeu} style={{maxHeight:"50%",maxWidth:"50%",margin:"2.5%"}}/>
                 <Card.Body>
                     <Card.Text style={{textAlign:"justify",margin:"2.5%"}}>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                    when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                    Com o Plano Pigmeu seu pet terá acesso a:
+                    Consultas e plantão 
+                    Consultas virtuais 
+                    Consultas de Urgência e Emergência 
+                    Vacinas 
+                    Exames laboratoriais 
+                    Exames de imagem básicos 
+                    Procedimentos clínicos 
+                    Tudo isso por apenas R$ 70,00 mensais!
                     </Card.Text>
                     <Button variant="primary">Saiba mais...</Button>
                 </Card.Body>
                 </Card>
                 <Card className="text-center" style={{alignItems:"center"}}>
-                <Card.Header style={{width:"100%"}}>Normal</Card.Header>
+                <Card.Header style={{width:"100%"}}>Comum</Card.Header>
                 <Card.Img variant="top" src={img_pigmeu} style={{maxHeight:"50%",maxWidth:"50%",margin:"2.5%"}}/>
                 <Card.Body>
                     
                 <Card.Text style={{textAlign:"justify",margin:"2.5%"}}>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                    when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                Com o Plano Comum seu pet terá acesso a:
+                Todos os benefícios do plano anterior 
+                Cirurgias 
+                Anestesia local e injetável 
+                Exames cardiovasculares
+                Benefícios acrescidos por apenas R$ 140,00 mensais! 
                     </Card.Text>
                     <Button variant="primary">Saiba mais...</Button>
                 </Card.Body>
@@ -54,9 +63,12 @@ class PlansPage extends Component{
                     <Card.Img variant="top" src={img_pigmeu} style={{maxHeight:"50%",maxWidth:"50%",margin:"2.5%"}}/>
                     <Card.Body>
                     <Card.Text style={{textAlign:"justify",margin:"2.5%"}}>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                    when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                    Com o Plano Nilo seu pet terá acesso a:
+                    Todos os benfícos dos planos anteriores 
+                    Visitas a petshops 
+                    Especialistas 
+                    Internação,
+                    Todas as vantagens por apenas R$ 180,00 mesais!
                         </Card.Text>
                         <Button variant="primary">Saiba mais...</Button>
                     </Card.Body>
