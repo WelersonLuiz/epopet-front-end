@@ -266,7 +266,7 @@ class RegistrationPage extends Component {
     );
   }
   
-  async handleSubmitForm2() {
+  async handleSubmitForm() {
     if (!await this.validateFields()) {
       return
     } else {
@@ -297,10 +297,6 @@ class RegistrationPage extends Component {
           this.handleShow();
         });
     }
-  }
-  
-  handleSubmitForm(){
-    console.log('VSF!')
   }
   
   componentDidMount() {
@@ -612,7 +608,7 @@ class RegistrationPage extends Component {
                   className="buttonSubmit"
                   variant="primary"
                   type="button"
-                  onClick={this.handleSubmitForm2.bind(this)}
+                  onClick={this.handleSubmitForm.bind(this)}
                 >
                   Cadastrar
                 </Button>

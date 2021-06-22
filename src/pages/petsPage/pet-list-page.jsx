@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import {Context} from "../../components/authContext"
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import PetList from '../../components/pet-list';
@@ -11,8 +12,16 @@ const PetListPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log("Getting pets")
-        const response = await axios.get('http://localhost:8080/pet');
+        var user = localStorage.getItem('user')
+        const response = await axios
+          .get('http://localhost:8080/pet/'+JSON.parse(user).id)
+          .catch((error) => {
+            if (error.response.data.errorCode === 1) {
+              return { data: [] };
+            } else {
+              throw error;
+            }
+          });
         console.log("Response: ", response)
         dispatch({
           type: 'FETCH_PETS',
