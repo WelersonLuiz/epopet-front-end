@@ -6,36 +6,37 @@ import img_pigmeu from "../images/login_image.png";
 
 class BusinessList extends Component {
   state = {
-    selectedBusiness: [],
+    selectedBusiness: {},
     businessList: [],
   };
 
-  handleLogout = () => {
-    this.props.handleLogout();
-    this.props.history.push("/");
-  };
 
-  onChange = (e) => {
-    this.state.businessList.filter((business) => {
-      if (business.id == e.target.value) {
-        this.setState({ selectedBusiness: business });
+  async onChange(e) {
+    console.log('Seleciona:',e.target.value)
+    await this.state.businessList.filter(async (business) => {
+      if (business.name == e.target.value) {
+         await this.setState({ selectedBusiness: business });
       }
     });
+    console.log('Selecionado',this.state.selectedBusiness)
   };
 
-  getBusinessList = () => {
-    axios
+  async getBusinessList(){
+    await axios
       .get("http://localhost:8080/business")
       .then((response) => {
+        console.log('Responta Back:', response.data)
         this.setState({ businessList: response.data });
       })
       .catch((error) => {
         console.log("register error", error);
       });
+ 
   };
 
-  componentDidMount() {
-    this.getBusinessList();
+  async componentDidMount() {   
+    await this.getBusinessList();
+    
   }
 
   render() {
@@ -48,20 +49,20 @@ class BusinessList extends Component {
               Selecione uma Clínica
               <select
                 id="business"
-                value={this.state.business.name}
-                onChange={this.onChange}
+                onChange={this.onChange.bind(this)}
               >
-                {this.state.business.map((business) => (
+                {this.state.businessList.map((business) => (
                   <option key={business.id} value={business.name}>
                     {business.name}
                   </option>
                 ))}
               </select>
             </label>
-            <form className='container_name_address'>
+            <h1 className='container_name_address'>
               <p >Name - {this.state.selectedBusiness.name}</p>
               <p>Address - {this.state.selectedBusiness.address}</p>
-              </form>
+              <p>Tipo - {this.state.selectedBusiness.businessType}</p>
+            </h1>
           {/*   <Card htmlfor="business" style={{ alignItems: "center" }}>
               <Card.Title>Title</Card.Title>
               <Card.Img

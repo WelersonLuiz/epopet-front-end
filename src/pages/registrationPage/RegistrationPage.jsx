@@ -370,7 +370,8 @@ class RegistrationPage extends Component {
       .update(e.target.value)
       .digest("hex");
 
-    this.state.data[e.target.name] = hashPassword;
+    // this.state.data[e.target.name] = hashPassword;
+    this.state.data[e.target.name] = e.target.value;
   };
 
   handleInputChangePasswordConfirmation = (e) => {
@@ -379,7 +380,8 @@ class RegistrationPage extends Component {
       .update(e.target.value)
       .digest("hex");
 
-    this.state.data[e.target.name] = hashPassword;
+    // this.state.data[e.target.name] = hashPassword;
+    this.state.data[e.target.name] = e.target.value;
   };
 
   render() {
