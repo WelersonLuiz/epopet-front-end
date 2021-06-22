@@ -10,26 +10,129 @@ class RegistrationPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
-      cpf: "",
-      cep: "",
-      dateOfBirth: "",
-      address: {
-        state: "",
-        city: "",
-        district: "",
-        address: "",
-        numero: null,
-        status: false,
+      data: {
+        name: "",
+        cpf: "",
+        cep: "",
+        dateOfBirth: "",
+        address: {
+          state: "",
+          city: "",
+          district: "",
+          address: "",
+          numero: null,
+          status: false,
+        },
+        email: "",
+        password: "",
+        passwordConfirmation: "",
       },
-      email: "",
-      senha: "",
-      senha1: "",
       alert: { status: null, show: false, message: null },
+      validation: {
+        email: false,
+        cpf: false,
+        dateOfBirth: false,
+      },
     };
   }
 
-  validarCPF(nr_cpf) {
+  renderAlert(message) {
+    if (message.message === null) return null;
+    return (
+      <div>
+        <Modal
+          show={message.show}
+          onHide={this.handleClose.bind(this)}
+          animation={false}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>{message.status}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>{message.message}</Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              onClick={this.handleClose.bind(this, message.status)}
+            >
+              OK
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
+    );
+  }
+
+  handleClose(e) {
+    if (e === "Erro") {
+      this.setState({ alert: { status: "Erro", show: false, message: null } });
+    } else {
+      this.props.history.push("/login");
+    }
+  }
+
+  handleShow() {
+    this.setState({
+      alert: { status: "Erro", show: true, message: this.state.alert.message },
+    });
+  }
+
+  handleShowSucess() {
+    this.setState({
+      alert: {
+        status: "Sucesso",
+        show: true,
+        message: this.state.alert.message,
+      },
+    });
+  }
+  
+  async validateCpf() {
+    var isValid = false;
+    var cpfValue = this.state.data.cpf
+  
+    if (!this.validateCpfFormat(cpfValue)) {
+      await this.setState({
+        alert: {
+          status: this.state.alert.status,
+          show: this.state.alert.show,
+          message: "CPF Invalido",
+        },
+      });
+      this.handleShow();
+    } else {
+      await axios
+        .get("http://localhost:8080/client/cpf/" + cpfValue)
+        .then(() => {
+          this.setState({
+            alert: {
+              status: this.state.alert.status,
+              show: this.state.alert.show,
+              message: "Já temos uma conta com esse CPF.",
+            },
+          });
+          this.handleShow();
+        })
+        .catch((error) => {
+          if (error.response.data.errorCode === 1) {
+            isValid = true;
+          } else {
+            this.setState({
+              alert: {
+                status: this.state.alert.status,
+                show: this.state.alert.show,
+                message: "Ocorreu um erro CPF.",
+              },
+            });
+            this.handleShow();
+          }
+        });
+        
+    }
+
+    return isValid;
+  }
+
+  validateCpfFormat(nr_cpf) {
     var cpf = nr_cpf.replace(/[^\d]+/g, "");
     if (cpf === "") return false;
     // Elimina CPFs invalidos conhecidos
@@ -62,138 +165,147 @@ class RegistrationPage extends Component {
     return true;
   }
 
-  checkName = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
+  async validateEmail() {
+    var isValid = false;
+    var emailValue = this.state.data.email;
+    var emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-  handleClose(e) {
-    if (e === "Erro") {
-      this.setState({ alert: { status: "Erro", show: false, message: null } });
+    if (!emailPattern.test(emailValue)) {
+      return
     } else {
-      this.props.history.push("/login");
-    }
-  }
-
-  handleShow() {
-    this.setState({
-      alert: { status: "Erro", show: true, message: this.state.alert.message },
-    });
-  }
-
-  handleShowSucess() {
-    this.setState({
-      alert: {
-        status: "Sucesso",
-        show: true,
-        message: this.state.alert.message,
-      },
-    });
-  }
-
-  async handleCloseSucess() {
-    await this.setState({
-      alert: { status: "Sucesso", show: false, message: null },
-    });
-  }
-
-  async checkCPF(e) {
-    var value = e.target;
-    var cpfValido = false;
-    if (value == undefined) {
-      value = e;
-    }
-    if (value.value.length !== 11) {
-    } else {
-      if (this.validarCPF(value.value) === false) {
-        console.log("CPF Invalido");
-        await this.setState({
-          alert: {
-            status: this.state.alert.status,
-            show: this.state.alert.show,
-            message: "CPF Invalido",
-          },
-        });
-        this.handleShow();
-        cpfValido = false;
-      } else {
-        await axios
-          .get("http://localhost:8080/client")
-          .then((response) => {
-            var existe = false;
-
-            response.data.map((response) => {
-              if (response.cpf === value.value) {
-                existe = true;
-              }
-            });
-            if (existe) {
-              this.setState({
-                alert: {
-                  status: this.state.alert.status,
-                  show: this.state.alert.show,
-                  message: "Já temos uma conta com esse CPF.",
-                },
-              });
-              this.handleShow();
-              cpfValido = false;
-            }
-          })
-          .catch((error) => {
+      await axios
+        .get("http://localhost:8080/client/email/" + emailValue)
+        .then((response) => {
+          this.setState({
+            alert: {
+              status: this.state.alert.status,
+              show: this.state.alert.show,
+              message: "Email já está sendo usado.",
+            },
+          });
+          this.handleShow();
+          isValid = false;
+        })
+        .catch((error) => {
+          if (error.response.data.errorCode === 1) {
+            isValid = true;
+          } else {
             this.setState({
               alert: {
                 status: this.state.alert.status,
                 show: this.state.alert.show,
-                message: "Ocorreu um erro.",
+                message: "Ocorreu um erro Email.",
               },
             });
             this.handleShow();
-          });
-        this.setState({ cpf: value.value });
-        cpfValido = true;
-      }
+            isValid = false;
+          }
+        });
     }
 
-    return cpfValido;
+    return isValid;
   }
 
-  renderAlert(message) {
-    if (message.message === null) return null;
+  validateDateOfBirth() {
+    const SegundosNoAno = 31557600;
+    var isValid = false;
+    var dateOfBirthValue = this.state.data.dateOfBirth;
+    console.log("Validating dateOfBirth ", dateOfBirthValue);
+    var partDate = dateOfBirthValue.split("-");
+    var dateOfBirth = new Date(partDate[0], partDate[1] - 1, partDate[2]);
+    var today = new Date();
+    var secondsSinceBirth = Math.floor((today - dateOfBirth) / 1000);
+    
+    if (secondsSinceBirth / SegundosNoAno < 18) {
+      this.setState({
+        alert: {
+          status: this.state.alert.status,
+          show: this.state.alert.show,
+          message:
+            "Para realizar um cadastro no na E-Popet você deve ser maior de 18 anos.",
+        },
+      });
+      this.handleShow();
+    } else {
+      isValid = true;
+    }
+    
+    return isValid;
+  }
+  
+  validatePasswords(){
+    console.log("Password Validation ", this.state.password);
+    console.log("Password Validation Conf ", this.state.passwordConfirmation);
+    var isValid = false;
+    if (this.state.password != this.state.passwordConfirmation) {
+      this.setState({
+        alert: {
+          status: this.state.alert.status,
+          show: this.state.alert.show,
+          message: "Confirmação de senha não confere com a senha",
+        },
+      });
+      this.handleShow();
+    } else {
+      isValid = true;
+    }
+    
+    console.log("Password is Valid ", isValid);
+    return isValid;
+  }
+
+  async validateFields() {
     return (
-      <div>
-        <Modal
-          show={message.show}
-          onHide={this.handleClose.bind(this)}
-          animation={false}
-        >
-          <Modal.Header closeButton>
-            <Modal.Title>{message.status}</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>{message.message}</Modal.Body>
-          <Modal.Footer>
-            <Button
-              variant="secondary"
-              onClick={this.handleClose.bind(this, message.status)}
-            >
-              OK
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      </div>
+      await this.validateCpf() && 
+      await this.validateEmail() && 
+      this.validateDateOfBirth() &&
+      this.validatePasswords()
     );
   }
-
-  async getDetailAdress(e) {
-    if (
-      !/[0-9]{5}-[0-9]{3}/.test(e.target.value) & !this.state.address.status
-    ) {
+  
+  async handleSubmitForm(e) {
+    if (!await this.validateFields()) {
+      console.log("Validation Error");
+      return
     } else {
+      console.log("Creating user: ", this.state.data);
+      await axios
+        .post("http://localhost:8080/client/", this.state.data)
+        .then((response) => {
+          console.log("Response: ", response);
+          if (response.status === 200) {
+            console.log("CADASTRADO ", response)
+          }
+        })
+        .catch((error) => {
+          console.log("Error: ", error);
+          this.setState({
+            alert: {
+              status: this.state.alert.status,
+              show: this.state.alert.show,
+              message: "Ocorreu um erro Submit.",
+            },
+          });
+          this.handleShow();
+        });
+    }
+  }
+  
+  componentDidMount() {
+    document.body.style.backgroundColor = "#bdf2ed";
+  }
+  
+  handleInputChangeCep = (e) => {
+    var cepValue = e.target.value;
+    var cepPattern = /[0-9]{5}-[0-9]{3}/;
+    
+    if (!cepPattern.test(cepValue)) {
+      return;
+    } else {
+      cepValue.replace("-", "");
+      this.state.data[e.target.name] = cepValue;
       axios
-        .get(
-          //"https://ws.apicep.com/cep.json?code=" + e.target.value
-          "https://viacep.com.br/ws/" +
-            e.target.value.replace("-", "") +
-            "/json/"
-        )
+        .get("https://viacep.com.br/ws/" + cepValue + "/json/")
         .then((response) => {
           if (response.status !== 200) {
             this.setState({
@@ -205,184 +317,74 @@ class RegistrationPage extends Component {
             });
             this.handleShow();
           }
-          var pseudoState = {
-            state: response.data.uf,
-            city: response.data.localidade,
-            district: response.data.bairro,
-            address: response.data.logradouro,
-            numero: this.state.address.numero,
-            status: true,
-          };
-          this.setState({ address: pseudoState });
+          
+          var newState = Object.assign(this.state.data, {
+            address: {
+              state: response.data.uf,
+              city: response.data.localidade,
+              district: response.data.bairro,
+              address: response.data.logradouro,
+              status: true,
+            }
+          })
+          this.setState({newState});
         })
         .catch((error) => {
+          console.log("Erro ", error)
           this.setState({
             alert: {
               status: this.state.alert.status,
               show: this.state.alert.show,
-              message: "Ocorreu um erro.",
+              message: "Ocorreu um erro CEP.",
             },
           });
           this.handleShow();
         });
     }
   }
-
-  setAddress(e) {
-    this.state.address[e.target.name] = e.target.value;
-  }
-
-  validEmail = (e) => {
-    var re =
-      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(e);
+  
+  handleInputChange = (e) => {
+    this.state.data[e.target.name] = e.target.value;
+    console.log("New Data ", this.state);
   };
 
-  async checkEmail(e) {
-    let emailValido = false;
+  handleInputChangeCpf = (e) => {
+    var cpfValue = e.target.value.replace('.', '').replace('.', '').replace('-', '');
+    this.state.data[e.target.name] = cpfValue;
+    console.log("New Data ", this.state);
+  };
 
-    if (!this.validEmail(e.value)) {
-    } else {
-      await axios
-        .get("http://localhost:8080/client/email/" + e.value)
-        .then((response) => {
-          this.setState({
-            alert: {
-              status: this.state.alert.status,
-              show: this.state.alert.show,
-              message: "Email já está sendo usado.",
-            },
-          });
-          this.handleShow();
-          emailValido = false;
-        })
-        .catch((error) => {
-          if (error.response.data.errorCode === 1) {
-            this.state["email"] = e.value;
-            emailValido = true;
-          } else {
-            this.setState({
-              alert: {
-                status: this.state.alert.status,
-                show: this.state.alert.show,
-                message: "Ocorreu um erro.",
-              },
-            });
-            this.handleShow();
-            emailValido = false;
-          }
-        });
-    }
+  handleInputChangeAddress = (e) => {
+    this.state.data.address[e.target.name] = e.target.value;
+    console.log("New Data ", this.state);
+  };
 
-    return emailValido;
-  }
-
-  async checkDateBirth(e) {
-    var value = e.target;
-    if (value == undefined) {
-      value = e;
-    }
-    const SegundosNoAnos = 31557600;
-    var partDate = value.value.split("-");
-    var dataofbirth = new Date(partDate[0], partDate[1] - 1, partDate[2]);
-    var today = new Date();
-    today = new Date(today.getUTCFullYear(), today.getMonth(), today.getDate());
-    var SecondsSinceBirth = Math.floor((today - dataofbirth) / 1000);
-    if (SecondsSinceBirth / SegundosNoAnos < 18) {
-      await this.setState({
-        alert: {
-          status: this.state.alert.status,
-          show: this.state.alert.show,
-          message:
-            "Para realizar um cadastro no na E-Popet você deve ser maior de 18 anos.",
-        },
-      });
-      this.handleShow();
-      return false;
-    } else {
-      this.state["dateOfBirth"] = value.value;
-      return true;
-    }
-  }
-
-  async setPassword(e) {
-    var hashPwd = crypto
+  handleInputChangePassword = (e) => {
+    var hashPassword = crypto
       .createHash("sha1")
       .update(e.target.value)
       .digest("hex");
 
-    if (e.target.name === "password") {
-      await this.setState({ senha: hashPwd });
-    }
-    if (e.target.name === "password1") {
-      await this.setState({ senha1: hashPwd });
-    }
-  }
+    this.state.data[e.target.name] = hashPassword;
+    console.log("New Data ", this.state);
+  };
 
-  async handleFormCompleted(e) {
-    e.preventDefault();
-    console.log(e.target);
-    var emailValida = await this.checkEmail(e.target[10]);
-    var dataBirthValida = await this.checkDateBirth(e.target[3]);
-    var cpfValido = await this.checkCPF(e.target[1]);
-    if (!emailValida | !dataBirthValida | !cpfValido) {
-    } else {
-      if (this.state.senha !== this.state.senha1) {
-        await this.setState({
-          alert: {
-            status: this.state.alert.status,
-            show: this.state.alert.show,
-            message: "Confirmação de senha não confere com a senha",
-          },
-        });
-        this.handleShow();
-      } else {
-        let body = {
-          name: this.state.name,
-          email: this.state.email,
-          dateOfBirth: this.state.dateOfBirth,
-          password: this.state.senha,
-          cpf: this.state.cpf,
-          address: JSON.stringify(this.state.address),
-        };
-        console.log(body);
-        axios
-          .post("http://localhost:8080/client", body)
-          .then((response) => {
-            if (response.status === 200) {
-              this.setState({
-                alert: {
-                  status: this.state.alert.status,
-                  show: this.state.alert.show,
-                  message: "Cadastro realizado com sucesso",
-                },
-              });
-              this.handleShowSucess();
-            }
-          })
-          .catch((error) => {
-            this.setState({
-              alert: {
-                status: this.state.alert.status,
-                show: this.state.alert.show,
-                message: "Ocorreu um erro.",
-              },
-            });
-            this.handleShow();
-          });
-      }
-    }
-  }
+  handleInputChangePasswordConfirmation = (e) => {
+    var hashPassword = crypto
+      .createHash("sha1")
+      .update(e.target.value)
+      .digest("hex");
 
-  componentDidMount() {
-    document.body.style.backgroundColor = "#bdf2ed";
-  }
+    this.state.data[e.target.name] = hashPassword;
+    console.log("New Data ", this.state);
+  };
 
   render() {
     return (
       <div>
+        {this.renderAlert(this.state.alert)}
         <div class="containerCadastro">
-          <form onSubmit={this.handleFormCompleted.bind(this)}>
+          <form onSubmit={this.handleSubmitForm.bind(this)}>
             <h5>Cadastro</h5>
             <div class="row">
               <div class="col-half">
@@ -392,7 +394,7 @@ class RegistrationPage extends Component {
                     type="text"
                     placeholder="Nome Completo"
                     required
-                    onChange={this.checkName}
+                    onChange={this.handleInputChange.bind(this)}
                   />
                   <div class="input-icon">
                     <i class="fa fa-user"></i>
@@ -407,7 +409,7 @@ class RegistrationPage extends Component {
                     type="string"
                     placeholder="CPF"
                     required
-                    onChange={this.checkCPF.bind(this)}
+                    onChange={this.handleInputChangeCpf}
                   ></InputMask>
                   <div class="input-icon">
                     <i class="fa fa-user"></i>
@@ -421,6 +423,7 @@ class RegistrationPage extends Component {
                     type="email"
                     placeholder="Email"
                     required
+                    onChange={this.handleInputChange}
                   />
                   <div class="input-icon">
                     <i class="fa fa-envelope"></i>
@@ -434,7 +437,7 @@ class RegistrationPage extends Component {
                     type="password"
                     placeholder="Senha"
                     required
-                    onChange={this.setPassword.bind(this)}
+                    onChange={this.handleInputChangePassword}
                   />
                   <div class="input-icon">
                     <i class="fa fa-key"></i>
@@ -444,11 +447,11 @@ class RegistrationPage extends Component {
               <div class="col-half">
                 <div class="input-group input-group-icon">
                   <input
-                    name="password1"
+                    name="passwordConfirmation"
                     type="password"
                     placeholder="Confirmar Senha"
                     required
-                    onChange={this.setPassword.bind(this)}
+                    onChange={this.handleInputChangePasswordConfirmation}
                   />
                   <div class="input-icon">
                     <i class="fa fa-key"></i>
@@ -460,10 +463,10 @@ class RegistrationPage extends Component {
                 <div class="input-group">
                   <div class="input-group input-group-icon">
                     <input
-                      name="databirth"
+                      name="dateOfBirth"
                       type="date"
                       required
-                      onChange={this.checkDateBirth.bind(this)}
+                      onChange={this.handleInputChange.bind(this)}
                     />
                     <div class="input-icon">
                       <i class="fa fa-key"></i>
@@ -474,7 +477,10 @@ class RegistrationPage extends Component {
               <div class="col-half">
                 <h4>Sexo</h4>
                 <div class="input-group">
-                  <select name="sexo">
+                  <select
+                    name="sexo"
+                    onChange={this.handleInputChange.bind(this)}
+                  >
                     <option selected class="sexo">
                       Selecione o Sexo
                     </option>
@@ -489,7 +495,6 @@ class RegistrationPage extends Component {
                 <h4>CEP</h4>
                 <div
                   class="input-group input-group-icon"
-                  controlId="formBasicCEP"
                 >
                   <InputMask
                     mask="99999-999"
@@ -497,7 +502,7 @@ class RegistrationPage extends Component {
                     type="string"
                     placeholder="Ex: 00000-000"
                     required
-                    onChange={this.getDetailAdress.bind(this)}
+                    onChange={this.handleInputChangeCep.bind(this)}
                   ></InputMask>
                   <div class="input-icon">
                     <i class="fa fa-user"></i>
@@ -508,16 +513,15 @@ class RegistrationPage extends Component {
                 <h4>Estado</h4>
                 <div
                   class="input-group input-group-icon"
-                  controlId="formBasicUF"
-                  onChange={this.setAddress.bind(this)}
+                  onChange={this.handleInputChangeAddress.bind(this)}
                 >
                   <input
                     name="state"
-                    defaultValue={this.state.address.state}
+                    defaultValue={this.state.data.address.state}
                     type="string"
                     placeholder="Ex: SP"
                     required
-                    onChange={this.setAddress.bind(this)}
+                    onChange={this.handleInputChangeAddress.bind(this)}
                   />
                   <div class="input-icon">
                     <i class="fa fa-user"></i>
@@ -528,15 +532,14 @@ class RegistrationPage extends Component {
                 <h4>Endereço</h4>
                 <div
                   class="input-group input-group-icon"
-                  controlId="formBasicEndereco"
                 >
                   <input
                     name="address"
-                    defaultValue={this.state.address.address}
+                    defaultValue={this.state.data.address.address}
                     type="string"
                     placeholder="Ex: Avenida Tiradentes"
                     required
-                    onChange={this.setAddress.bind(this)}
+                    onChange={this.handleInputChangeAddress.bind(this)}
                   />
                   <div class="input-icon">
                     <i class="fa fa-key"></i>
@@ -547,14 +550,13 @@ class RegistrationPage extends Component {
                 <h4>Numero</h4>
                 <div
                   class="input-group input-group-icon"
-                  controlId="formBasicNumero"
                 >
                   <input
                     name="numero"
                     type="string"
                     placeholder="Ex: 21"
                     required
-                    onChange={this.setAddress.bind(this)}
+                    onChange={this.handleInputChangeAddress.bind(this)}
                   />
                   <div class="input-icon">
                     <i class="fa fa-key"></i>
@@ -565,15 +567,14 @@ class RegistrationPage extends Component {
                 <h4>Cidade</h4>
                 <div
                   class="input-group input-group-icon"
-                  controlId="formBasicCidade"
                 >
                   <input
                     name="city"
-                    defaultValue={this.state.address.city}
+                    defaultValue={this.state.data.address.city}
                     type="string"
                     placeholder="Ex: São Paulo"
                     required
-                    onChange={this.setAddress.bind(this)}
+                    onChange={this.handleInputChangeAddress.bind(this)}
                   />
                   <div class="input-icon">
                     <i class="fa fa-envelope"></i>
@@ -584,15 +585,14 @@ class RegistrationPage extends Component {
                 <h4>Bairro</h4>
                 <div
                   class="input-group input-group-icon"
-                  controlId="formBasicBairro"
                 >
                   <input
                     name="district"
-                    defaultValue={this.state.address.district}
+                    defaultValue={this.state.data.address.district}
                     type="string"
                     placeholder="Ex: Bom Retiro"
                     required
-                    onChange={this.setAddress.bind(this)}
+                    onChange={this.handleInputChangeAddress.bind(this)}
                   />
                   <div class="input-icon">
                     <i class="fa fa-key"></i>
