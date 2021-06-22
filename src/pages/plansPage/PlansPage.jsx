@@ -30,13 +30,13 @@ class PlansPage extends Component{
                 <Card.Body>
                     <Card.Text className ="descriptionPlanoTexto" style={{textAlign:"justify",margin:"0.5%",}}>
                     Com o Plano Pigmeu seu pet terá acesso a:
-                    Consultas e plantão
-                    Consultas virtuais 
-                    Consultas de Urgência e Emergência 
-                    Vacinas 
-                    Exames laboratoriais 
-                    Exames de imagem básicos 
-                    Procedimentos clínicos 
+                    Consultas e plantão,
+                    Consultas virtuais, 
+                    Consultas de Urgência e Emergência,
+                    Vacinas,
+                    Exames laboratoriais,
+                    Exames de imagem básicos, 
+                    Procedimentos clínicos,
                     Tudo isso por apenas R$ 70,00 mensais!
                     </Card.Text>
                     <Button variant="primary">Saiba mais...</Button>
@@ -49,10 +49,10 @@ class PlansPage extends Component{
                     
                 <Card.Text style={{textAlign:"justify",margin:"2.5%"}}>
                 Com o Plano Comum seu pet terá acesso a:
-                Todos os benefícios do plano anterior 
-                Cirurgias 
-                Anestesia local e injetável 
-                Exames cardiovasculares
+                Todos os benefícios do plano anterior, 
+                Cirurgias, 
+                Anestesia local e injetável, 
+                Exames cardiovasculares,
                 Benefícios acrescidos por apenas R$ 140,00 mensais! 
                     </Card.Text>
                     <Button variant="primary">Saiba mais...</Button>
@@ -64,9 +64,9 @@ class PlansPage extends Component{
                     <Card.Body>
                     <Card.Text style={{textAlign:"justify",margin:"2.5%"}}>
                     Com o Plano Nilo seu pet terá acesso a:
-                    Todos os benfícos dos planos anteriores 
-                    Visitas a petshops 
-                    Especialistas 
+                    Todos os benfícos dos planos anteriores, 
+                    Visitas a petshops, 
+                    Especialistas, 
                     Internação,
                     Todas as vantagens por apenas R$ 180,00 mesais!
                         </Card.Text>
