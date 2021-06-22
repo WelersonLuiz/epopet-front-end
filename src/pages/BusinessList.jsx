@@ -58,8 +58,10 @@ class BusinessList extends Component {
                 ))}
               </select>
             </label>
-            <p >Name - {this.state.selectedBusiness.name}</p>
-             <p>Address - {this.state.selectedBusiness.address}</p>
+            <form className='container_name_address'>
+              <p >Name - {this.state.selectedBusiness.name}</p>
+              <p>Address - {this.state.selectedBusiness.address}</p>
+              </form>
           {/*   <Card htmlfor="business" style={{ alignItems: "center" }}>
               <Card.Title>Title</Card.Title>
               <Card.Img
