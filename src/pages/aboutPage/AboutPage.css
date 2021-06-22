@@ -33,7 +33,13 @@
     min-height: 100%;
     background-size: cover;
     background-position: center;
-    background-color: rgb(4, 34, 3);
+    background-color: white;
+}
+.AboutContainer h3{
+    color: red;
+}
+.AboutContainer p{
+    color: black;
 }
 
 
