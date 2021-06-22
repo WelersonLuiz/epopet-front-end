@@ -268,7 +268,6 @@ class RegistrationPage extends Component {
   
   async handleSubmitForm2() {
     if (!await this.validateFields()) {
-      console.log("Validation Error");
       return
     } else {
       console.log("Creating user: ", this.state.data);
@@ -276,9 +275,14 @@ class RegistrationPage extends Component {
       await axios
         .post("http://localhost:8080/client/", this.state.data)
         .then((response) => {
-          console.log("Response: ", response);
           if (response.status === 200) {
-            console.log("CADASTRADO ", response)
+            this.setState({
+              alert:{
+                status:this.state.alert.status,
+                show:this.state.alert.show,message:'Cadastro realizado com sucesso'
+              }
+            })
+            this.handleShowSucess()
           }
         })
         .catch((error) => {
@@ -353,18 +357,15 @@ class RegistrationPage extends Component {
   
   handleInputChange = (e) => {
     this.state.data[e.target.name] = e.target.value;
-    console.log("New Data ", this.state);
   };
 
   handleInputChangeCpf = (e) => {
     var cpfValue = e.target.value.replace('.', '').replace('.', '').replace('-', '');
     this.state.data[e.target.name] = cpfValue;
-    console.log("New Data ", this.state);
   };
 
   handleInputChangeAddress = (e) => {
     this.state.data.address[e.target.name] = e.target.value;
-    console.log("New Data ", this.state);
   };
 
   handleInputChangePassword = (e) => {
@@ -374,7 +375,6 @@ class RegistrationPage extends Component {
       .digest("hex");
 
     this.state.data[e.target.name] = hashPassword;
-    console.log("New Data ", this.state);
   };
 
   handleInputChangePasswordConfirmation = (e) => {
@@ -384,12 +384,12 @@ class RegistrationPage extends Component {
       .digest("hex");
 
     this.state.data[e.target.name] = hashPassword;
-    console.log("New Data ", this.state);
   };
 
   render() {
     return (
       <div>
+        {this.renderAlert(this.state.alert)}
         <div className="containerCadastro">
           <Form>
             <h5>Cadastro</h5>
