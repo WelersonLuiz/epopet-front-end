@@ -18,18 +18,18 @@ class AboutPage extends Component {
     return (
       <div>
         <Header />
-        <div className="container">
+        <div className="AboutContainer">
           <Carousel style={{ margin: "10%" }}>
             <Carousel.Item>
               <img
-                className="d-block w-100"
+                className="AboutPageEsquerdaImg"
                 src={img_pigmeu}
                 alt="First slide"
                 style={{ maxHeight: "30%", maxWidth: "30%" }}
               />
-              <Carousel.Caption>
-                <h3>Quem Somos?</h3>
-                <p style={{ textAlign: "justify" }}>
+              <Carousel.Caption >
+                <h3> Quem Somos?</h3>
+                <p className= "AboutPageDireitaTxt" style={{ textAlign: "justify" }}>
                   O plano de saúde para pets Epopet nasceu com a missão de aprimorar o encaminhamento do cliente à consultas 
                   e diagnósticos para seu pet, focando na empatia e em, principalmente,
                    sua confiança para com nossos serviços através do investimento 
@@ -41,14 +41,14 @@ class AboutPage extends Component {
             </Carousel.Item>
             <Carousel.Item>
               <img
-                className="d-block w-100"
+                className="AboutPageEsquerdaImg"
                 src={img_pigmeu}
                 alt="Second slide"
                 style={{ maxHeight: "30%", maxWidth: "30%" }}
               />
               <Carousel.Caption>
                 <h3>O que fazemos?</h3>
-                <p style={{ textAlign: "justify" }}>
+                <p className= "AboutPageDireitaTxt" style={{ textAlign: "justify" }}>
                   Um só plano para todos os seus pets! Contrate agora um dos 
                   nossos planos e cadastre todos os seus pets na nossa plataforma online
                   para agendar consultas e cirurgias na nossa rede credenciada de parceiros! 
@@ -60,14 +60,14 @@ class AboutPage extends Component {
             </Carousel.Item>
             <Carousel.Item>
               <img
-                className="d-block w-100"
+               className="AboutPageEsquerdaImg"
                 src={img_pigmeu}
                 alt="Third slide"
                 style={{ maxHeight: "30%", maxWidth: "30%" }}
               />
               <Carousel.Caption>
                 <h3>Nossos parceiros</h3>
-                <p style={{ textAlign: "justify" }}>
+                <p className= "AboutPageDireitaTxt" style={{ textAlign: "justify" }}>
                 Com o Epopet você tem à disposição uma rede de prestadores prontos para atender seu pet.
                 Tenha acesso imediato aos melhores profissionais especializados em cuidados veterinários
                 disponíveis em clínicas e hospitais para um rápido diagnóstico.{" "}
