@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import InputMask from "react-input-mask";
-import { Modal, Button } from "react-bootstrap";
+import { Form, Modal, Button } from "react-bootstrap";
 import axios from "axios";
 import "./RegistrationPage.css";
 
@@ -129,6 +129,7 @@ class RegistrationPage extends Component {
         
     }
 
+    console.log("CPF isValid ", isValid);
     return isValid;
   }
 
@@ -203,6 +204,7 @@ class RegistrationPage extends Component {
         });
     }
 
+    console.log("Email isValid ", isValid);
     return isValid;
   }
 
@@ -230,12 +232,13 @@ class RegistrationPage extends Component {
       isValid = true;
     }
     
+    console.log("DateOfBirth isValid ", isValid);
     return isValid;
   }
   
   validatePasswords(){
-    console.log("Password Validation ", this.state.password);
-    console.log("Password Validation Conf ", this.state.passwordConfirmation);
+    console.log("Password Validation ", this.state.data.password);
+    console.log("Password Validation Conf ", this.state.data.passwordConfirmation);
     var isValid = false;
     if (this.state.password != this.state.passwordConfirmation) {
       this.setState({
@@ -263,12 +266,13 @@ class RegistrationPage extends Component {
     );
   }
   
-  async handleSubmitForm(e) {
+  async handleSubmitForm2() {
     if (!await this.validateFields()) {
       console.log("Validation Error");
       return
     } else {
       console.log("Creating user: ", this.state.data);
+      this.state.data.address = JSON.stringify(this.state.data.address)
       await axios
         .post("http://localhost:8080/client/", this.state.data)
         .then((response) => {
@@ -289,6 +293,10 @@ class RegistrationPage extends Component {
           this.handleShow();
         });
     }
+  }
+  
+  handleSubmitForm(){
+    console.log('VSF!')
   }
   
   componentDidMount() {
@@ -382,13 +390,12 @@ class RegistrationPage extends Component {
   render() {
     return (
       <div>
-        {this.renderAlert(this.state.alert)}
-        <div class="containerCadastro">
-          <form onSubmit={this.handleSubmitForm.bind(this)}>
+        <div className="containerCadastro">
+          <Form>
             <h5>Cadastro</h5>
-            <div class="row">
-              <div class="col-half">
-                <div class="input-group input-group-icon">
+            <div className="row">
+              <div className="col-half">
+                <div className="input-group input-group-icon">
                   <input
                     name="name"
                     type="text"
@@ -396,13 +403,13 @@ class RegistrationPage extends Component {
                     required
                     onChange={this.handleInputChange.bind(this)}
                   />
-                  <div class="input-icon">
-                    <i class="fa fa-user"></i>
+                  <div className="input-icon">
+                    <i className="fa fa-user"></i>
                   </div>
                 </div>
               </div>
-              <div class="col-half">
-                <div class="input-group input-group-icon">
+              <div className="col-half">
+                <div className="input-group input-group-icon">
                   <InputMask
                     mask="999.999.999-99"
                     name="cpf"
@@ -411,13 +418,13 @@ class RegistrationPage extends Component {
                     required
                     onChange={this.handleInputChangeCpf}
                   ></InputMask>
-                  <div class="input-icon">
-                    <i class="fa fa-user"></i>
+                  <div className="input-icon">
+                    <i className="fa fa-user"></i>
                   </div>
                 </div>
               </div>
-              <div class="col-full">
-                <div class="input-group input-group-icon">
+              <div className="col-full">
+                <div className="input-group input-group-icon">
                   <input
                     name="email"
                     type="email"
@@ -425,13 +432,13 @@ class RegistrationPage extends Component {
                     required
                     onChange={this.handleInputChange}
                   />
-                  <div class="input-icon">
-                    <i class="fa fa-envelope"></i>
+                  <div className="input-icon">
+                    <i className="fa fa-envelope"></i>
                   </div>
                 </div>
               </div>
-              <div class="col-half">
-                <div class="input-group input-group-icon">
+              <div className="col-half">
+                <div className="input-group input-group-icon">
                   <input
                     name="password"
                     type="password"
@@ -439,13 +446,13 @@ class RegistrationPage extends Component {
                     required
                     onChange={this.handleInputChangePassword}
                   />
-                  <div class="input-icon">
-                    <i class="fa fa-key"></i>
+                  <div className="input-icon">
+                    <i className="fa fa-key"></i>
                   </div>
                 </div>
               </div>
-              <div class="col-half">
-                <div class="input-group input-group-icon">
+              <div className="col-half">
+                <div className="input-group input-group-icon">
                   <input
                     name="passwordConfirmation"
                     type="password"
@@ -453,35 +460,35 @@ class RegistrationPage extends Component {
                     required
                     onChange={this.handleInputChangePasswordConfirmation}
                   />
-                  <div class="input-icon">
-                    <i class="fa fa-key"></i>
+                  <div className="input-icon">
+                    <i className="fa fa-key"></i>
                   </div>
                 </div>
               </div>
-              <div class="col-half">
+              <div className="col-half">
                 <h4>Data de Nascimento</h4>
-                <div class="input-group">
-                  <div class="input-group input-group-icon">
+                <div className="input-group">
+                  <div className="input-group input-group-icon">
                     <input
                       name="dateOfBirth"
                       type="date"
                       required
                       onChange={this.handleInputChange.bind(this)}
                     />
-                    <div class="input-icon">
-                      <i class="fa fa-key"></i>
+                    <div className="input-icon">
+                      <i className="fa fa-key"></i>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="col-half">
+              <div className="col-half">
                 <h4>Sexo</h4>
-                <div class="input-group">
+                <div className="input-group">
                   <select
                     name="sexo"
                     onChange={this.handleInputChange.bind(this)}
                   >
-                    <option selected class="sexo">
+                    <option defaultValue className="sexo">
                       Selecione o Sexo
                     </option>
                     <option value="Masculino">Masculino</option>
@@ -490,11 +497,11 @@ class RegistrationPage extends Component {
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-half">
+            <div className="row">
+              <div className="col-half">
                 <h4>CEP</h4>
                 <div
-                  class="input-group input-group-icon"
+                  className="input-group input-group-icon"
                 >
                   <InputMask
                     mask="99999-999"
@@ -504,15 +511,15 @@ class RegistrationPage extends Component {
                     required
                     onChange={this.handleInputChangeCep.bind(this)}
                   ></InputMask>
-                  <div class="input-icon">
-                    <i class="fa fa-user"></i>
+                  <div className="input-icon">
+                    <i className="fa fa-user"></i>
                   </div>
                 </div>
               </div>
-              <div class="col-half">
+              <div className="col-half">
                 <h4>Estado</h4>
                 <div
-                  class="input-group input-group-icon"
+                  className="input-group input-group-icon"
                   onChange={this.handleInputChangeAddress.bind(this)}
                 >
                   <input
@@ -523,15 +530,15 @@ class RegistrationPage extends Component {
                     required
                     onChange={this.handleInputChangeAddress.bind(this)}
                   />
-                  <div class="input-icon">
-                    <i class="fa fa-user"></i>
+                  <div className="input-icon">
+                    <i className="fa fa-user"></i>
                   </div>
                 </div>
               </div>
-              <div class="col-two-thirds">
+              <div className="col-two-thirds">
                 <h4>Endereço</h4>
                 <div
-                  class="input-group input-group-icon"
+                  className="input-group input-group-icon"
                 >
                   <input
                     name="address"
@@ -541,15 +548,15 @@ class RegistrationPage extends Component {
                     required
                     onChange={this.handleInputChangeAddress.bind(this)}
                   />
-                  <div class="input-icon">
-                    <i class="fa fa-key"></i>
+                  <div className="input-icon">
+                    <i className="fa fa-key"></i>
                   </div>
                 </div>
               </div>
-              <div class="col-third">
+              <div className="col-third">
                 <h4>Numero</h4>
                 <div
-                  class="input-group input-group-icon"
+                  className="input-group input-group-icon"
                 >
                   <input
                     name="numero"
@@ -558,15 +565,15 @@ class RegistrationPage extends Component {
                     required
                     onChange={this.handleInputChangeAddress.bind(this)}
                   />
-                  <div class="input-icon">
-                    <i class="fa fa-key"></i>
+                  <div className="input-icon">
+                    <i className="fa fa-key"></i>
                   </div>
                 </div>
               </div>
-              <div class="col-half">
+              <div className="col-half">
                 <h4>Cidade</h4>
                 <div
-                  class="input-group input-group-icon"
+                  className="input-group input-group-icon"
                 >
                   <input
                     name="city"
@@ -576,15 +583,15 @@ class RegistrationPage extends Component {
                     required
                     onChange={this.handleInputChangeAddress.bind(this)}
                   />
-                  <div class="input-icon">
-                    <i class="fa fa-envelope"></i>
+                  <div className="input-icon">
+                    <i className="fa fa-envelope"></i>
                   </div>
                 </div>
               </div>
-              <div class="col-half">
+              <div className="col-half">
                 <h4>Bairro</h4>
                 <div
-                  class="input-group input-group-icon"
+                  className="input-group input-group-icon"
                 >
                   <input
                     name="district"
@@ -594,23 +601,24 @@ class RegistrationPage extends Component {
                     required
                     onChange={this.handleInputChangeAddress.bind(this)}
                   />
-                  <div class="input-icon">
-                    <i class="fa fa-key"></i>
+                  <div className="input-icon">
+                    <i className="fa fa-key"></i>
                   </div>
                 </div>
               </div>
 
-              <div class="row">
+              <div className="row">
                 <Button
                   className="buttonSubmit"
                   variant="primary"
-                  type="submit"
+                  type="button"
+                  onClick={this.handleSubmitForm2.bind(this)}
                 >
                   Cadastrar
                 </Button>
               </div>
             </div>
-          </form>
+          </Form>
         </div>
       </div>
     );

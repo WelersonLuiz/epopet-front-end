@@ -1,11 +1,7 @@
 import "./App.css";
 import React, { Component } from "react";
 import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-  NavLink,
+  BrowserRouter as Router
 } from "react-router-dom";
 
 import Routes from "./components/routes"
