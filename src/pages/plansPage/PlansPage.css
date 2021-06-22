@@ -10,12 +10,13 @@
     width: auto;
     height: 5%;
     border: solid 4px;
-    border-color: black;
+    border-color: rgb(14, 87, 35);
 }
 
 .PlanosTitleTxt {
     font-size: xx-large;
     text-align: center;
+    color: rgb(14, 87, 35);
 }
 
 
@@ -29,7 +30,7 @@
     height: auto;
     float: left;
     border:solid 4px;
-    border-color: black;
+    border-color:rgb(14, 87, 35);
     border-radius: 50px;
 
 
@@ -45,7 +46,7 @@
     height: auto;
     float: center;
     border:solid 4px;
-    border-color: black;
+    border-color:rgb(14, 87, 35);
     border-radius: 50px;
 
 }
@@ -60,7 +61,7 @@
     height: auto;
     float: right;
     border:solid 4px;
-    border-color: black;
+    border-color:rgb(14, 87, 35);
     border-radius: 50px;
 
 
@@ -73,7 +74,7 @@
     right: 5%;
     width: auto;
     border: solid 4px;
-    border-color: black;
+    border-color:rgb(14, 87, 35);
 }
 
 .descriptionPlano {

@@ -23,14 +23,14 @@ class PlansPage extends Component{
                 </div>
                 <div className='container'>
                 
-                <CardDeck style={{paddingTop:"2.0%"}}>
-                <Card className="text-center" style={{alignItems:"center"}}>
-                <Card.Header style={{width:"100%"}}>Pigmeu</Card.Header>
+                <CardDeck style={{paddingTop:"0.5%"}}>
+                <Card className="PlanosPageEsquerda" style={{alignItems:"center"}}>
+                <Card.Header className = "PlanosTitleTxt"style={{width:"100%"}}>Pigmeu</Card.Header>
                 <Card.Img variant="top" src={img_pigmeu} style={{maxHeight:"50%",maxWidth:"50%",margin:"2.5%"}}/>
                 <Card.Body>
-                    <Card.Text style={{textAlign:"justify",margin:"2.5%"}}>
+                    <Card.Text className ="descriptionPlanoTexto" style={{textAlign:"justify",margin:"0.5%",}}>
                     Com o Plano Pigmeu seu pet terá acesso a:
-                    Consultas e plantão 
+                    Consultas e plantão
                     Consultas virtuais 
                     Consultas de Urgência e Emergência 
                     Vacinas 
@@ -42,8 +42,8 @@ class PlansPage extends Component{
                     <Button variant="primary">Saiba mais...</Button>
                 </Card.Body>
                 </Card>
-                <Card className="text-center" style={{alignItems:"center"}}>
-                <Card.Header style={{width:"100%"}}>Comum</Card.Header>
+                <Card className="PlanosPageCentro" style={{alignItems:"center"}}>
+                <Card.Header className = "PlanosTitleTxt" style={{width:"100%"}}>Comum</Card.Header>
                 <Card.Img variant="top" src={img_pigmeu} style={{maxHeight:"50%",maxWidth:"50%",margin:"2.5%"}}/>
                 <Card.Body>
                     
@@ -58,8 +58,8 @@ class PlansPage extends Component{
                     <Button variant="primary">Saiba mais...</Button>
                 </Card.Body>
                 </Card>
-                <Card className="text-center" style={{alignItems:"center"}}>
-                    <Card.Header style={{width:"100%"}}>Nilo</Card.Header>
+                <Card className="PlanosPageDireita" style={{alignItems:"center"}}>
+                    <Card.Header className = "PlanosTitleTxt" style={{width:"100%"}}>Nilo</Card.Header>
                     <Card.Img variant="top" src={img_pigmeu} style={{maxHeight:"50%",maxWidth:"50%",margin:"2.5%"}}/>
                     <Card.Body>
                     <Card.Text style={{textAlign:"justify",margin:"2.5%"}}>
@@ -70,7 +70,7 @@ class PlansPage extends Component{
                     Internação,
                     Todas as vantagens por apenas R$ 180,00 mesais!
                         </Card.Text>
-                        <Button variant="primary">Saiba mais...</Button>
+                        <Button  variant="primary" >Saiba mais...</Button>
                     </Card.Body>
                 </Card>
                 </CardDeck>
