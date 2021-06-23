@@ -12,7 +12,7 @@ const BusinessCard = ({ business }) => {
 
   return (
     <div className="business-card">
-      <Card>
+      <Card style={{width:'100%', margin: '0 auto'}}>
         <Card.Content>
           <Card.Header className="business-card-header">
             <Icon name="home" /> {business.name}

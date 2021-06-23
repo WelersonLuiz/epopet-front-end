@@ -1,7 +1,7 @@
 .pet-list-body {
   background-image: url("../../images/pets-background-image.jpg");
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: cover;
   background-attachment: fixed;
   min-height: 800px;
 }
