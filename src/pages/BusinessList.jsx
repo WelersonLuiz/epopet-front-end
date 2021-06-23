@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Header } from "../components/common";
-import { Card } from "react-bootstrap";
-import img_pigmeu from "../images/login_image.png";
+
 
 class BusinessList extends Component {
   state = {
@@ -63,14 +62,6 @@ class BusinessList extends Component {
               <p>Address - {this.state.selectedBusiness.address}</p>
               <p>Tipo - {this.state.selectedBusiness.businessType}</p>
             </h1>
-          {/*   <Card htmlfor="business" style={{ alignItems: "center" }}>
-              <Card.Title>Title</Card.Title>
-              <Card.Img
-                src={img_pigmeu}
-                style={{ maxHeight: "15%", maxWidth: "15%", margin: "1.5 %" }}
-              />
-              <Card.Subtitle>Subtitle</Card.Subtitle>
-            </Card> */}
           </form>
         </div>
       </div>
