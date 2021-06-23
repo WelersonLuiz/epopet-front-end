@@ -24,6 +24,7 @@
     width: 50%;
     height: 70%;
     float: right;
+    font-size:50%;
 
 }
 
@@ -43,7 +44,7 @@
     color: rgb(16, 46, 1);
 }
 
-.AboutContainer Carousel{
+.AboutContainerCarousel{
     color: rgb(16, 46, 1);
 }
 

@@ -92,6 +92,7 @@ const Routes = () => (
             <PrivateRoute exact path="/pets" component={PetListPage} />
             <PrivateRoute exact path="/pets/new" component={PetFormPage} />
             <PrivateRoute exact path="/pets/edit/:_id" component={PetFormPage} />
+            {/* <PrivateRoute exact path="/agendamentos/new" component={AppointmentFormPage}/> */}
             <Route
                 exact
                 path={routePaths.notFound}
