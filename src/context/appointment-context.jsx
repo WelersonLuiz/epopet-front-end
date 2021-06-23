@@ -3,9 +3,9 @@ import React, { useReducer, createContext } from 'react';
 export const AppointmentContext = createContext();
 
 const initialState = {
-  appoints: [],
-  appoint: {}, // selected or new
-  message: {}, // { type: 'success|fail', title:'Info|Error' content:'lorem ipsum'}
+  appointments: [],
+  appointment: {},
+  message: {},
 };
 
 function reducer(state, action) {
@@ -13,7 +13,7 @@ function reducer(state, action) {
     case 'CREATE_APPOINTMENT': {
       return {
         ...state,
-        appoints: [...state.appoints, action.payload],
+        appointments: [...state.appointments, action.payload],
         message: {
           type: 'success',
           title: 'Success',
@@ -21,10 +21,10 @@ function reducer(state, action) {
         },
       };
     }
-    case 'FETCH_APPOINTMENT': {
+    case 'FETCH_APPOINTMENTS': {
       return {
         ...state,
-        appoints: action.payload,
+        appointments: action.payload,
       };
     }
     case 'FETCH_APPOINTMENT': {
@@ -34,16 +34,16 @@ function reducer(state, action) {
       };
     }
     case 'UPDATE_APPOINTMENT': {
-      const appoint = action.payload;
+      const appointment = action.payload;
       return {
         ...state,
-        appoints: state.appoints.map(item =>
-          item._id === appoint._id ? appoint : item,
+        appointments: state.appointments.map(item =>
+          item._id === appointment._id ? appointment : item,
         ),
         message: {
           type: 'success',
           title: 'Update Successful',
-          content: `Agendamento "${appoint.id}" has been updated!`,
+          content: `Agendamento "${appointment.id}" has been updated!`,
         },
       };
     }
@@ -51,7 +51,7 @@ function reducer(state, action) {
       const id = action.payload;
       return {
         ...state,
-        appoints: state.appoints.filter(item => item.id !== id),
+        appointments: state.appointments.filter(item => item.id !== id),
         message: {
           type: 'success',
           title: 'Deletado com sucesso',

@@ -51,14 +51,6 @@ const PetListPage = () => {
               className="item pet-list-navlink"
               activeClassName="active"
               exact
-              to="/pets"
-            >
-              Lista de Pets
-            </NavLink>
-            <NavLink
-              className="item pet-list-navlink"
-              activeClassName="active"
-              exact
               to="/pets/new"
             >
               Adiciona Pet

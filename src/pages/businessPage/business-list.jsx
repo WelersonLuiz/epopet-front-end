@@ -4,7 +4,6 @@ import BusinessCard from './business-card';
 
 const BusinessList = ({ businesses }) => {
   const cards = () => {
-    console.log("BUSINESSES ", businesses)
     return businesses.map(business => {
       return <BusinessCard key={business.id} business={business} />;
     });

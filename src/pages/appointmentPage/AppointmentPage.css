@@ -1,23 +1,23 @@
-.pet-list-body {
-  background-image: url("../../images/pets-background-image.jpg");
+.appointment-list-body {
+  background-image: url("../../images/appointments-background-image.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
   min-height: 800px;
 }
 
-.pet-list-title {
+.appointment-list-title {
   text-align: center;
   padding: 40px;
   color: #008F86;
   -webkit-text-stroke: 1px #2F4858; /* width and color */
 }
 
-.pet-list-title h1{
+.appointment-list-title h1{
   font-size: 40px;
 }
 
-.pet-list-results {
+.appointment-list-results {
   width: 80%;
   margin-left: auto;
   margin-right: auto;
@@ -25,7 +25,7 @@
   margin-bottom: 20px;
 }
 
-.pet-list-filters {
+.appointment-list-filters {
   display: table;
   text-align: center;
   border-radius: 10px;
@@ -36,7 +36,7 @@
   padding: 10px;
 }
 
-.pet-list-filters select{
+.appointment-list-filters select{
   display:none;    
   vertical-align: middle;
   width: 30%;
@@ -51,12 +51,4 @@
   position: absolute;
   white-space: nowrap;
   width: 1px;
-}
-
-
-.pet-list-options{
-  width: 50%;
-  margin: 0 auto;
-  padding: 20px;
-  background-color:transparent;
 }

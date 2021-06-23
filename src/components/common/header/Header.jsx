@@ -42,6 +42,7 @@ function Header(props) {
           <Nav className="mr-auto">
             <Nav.Link href="/dashboard">Home</Nav.Link>
             <Nav.Link href="/nos">Nós</Nav.Link>
+            <Nav.Link href="/planos">Planos</Nav.Link>
             <Nav.Link href="/rede-referenciada">Rede Referenciada</Nav.Link>
             {(authenticated) ? <Nav.Link href="/pets">Pets</Nav.Link>: ''}
             {(authenticated) ? <Nav.Link href="/agendamentos">Agendamentos</Nav.Link>:''}

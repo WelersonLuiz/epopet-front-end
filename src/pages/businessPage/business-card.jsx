@@ -25,7 +25,7 @@ const BusinessCard = ({ business }) => {
             <p>Serviços: {business.servicesAvailable}</p>
           </Card.Description>
         </Card.Content>
-        <Card.Content extra>
+        <Card.Content extra style={{display:'none'}}>
           <div className="ui two buttons">
             <Button
               basic

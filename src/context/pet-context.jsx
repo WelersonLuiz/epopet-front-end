@@ -4,8 +4,8 @@ export const PetContext = createContext();
 
 const initialState = {
   pets: [],
-  pet: {}, // selected or new
-  message: {}, // { type: 'success|fail', title:'Info|Error' content:'lorem ipsum'}
+  pet: {},
+  message: {},
 };
 
 function reducer(state, action) {
