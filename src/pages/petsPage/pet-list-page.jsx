@@ -14,7 +14,7 @@ const PetListPage = () => {
       try {
         var user = localStorage.getItem('user')
         const response = await axios
-          .get('http://localhost:8080/pet/'+JSON.parse(user).id)
+          .get('http://localhost:8080/pet/client/'+JSON.parse(user).id)
           .catch((error) => {
             if (error.response.data.errorCode === 1) {
               return { data: [] };
