@@ -58,7 +58,7 @@ function LoginPage(props){
                   {/* <div className='container_login_imagem_img'></div> */}
                   <Card.Img
                     src={logo_login}
-                    style={{ maxWidth: "95%", maxHeight: "95%", margin: "2.5%" }}
+                    className="login_imagem"
                   ></Card.Img>
                 </div>
               </Link>
@@ -67,9 +67,11 @@ function LoginPage(props){
                   <h3>Bem vindo</h3>
                 </div>
                 <Form className="container_login_form_preenche">
-                  <Form.Label>Conecte sua conta</Form.Label>
+                  <Form.Label className="connect-label">
+                    Conecte sua conta
+                  </Form.Label>
                   <Form.Group>
-                    <Form.Group controlId="formBasicEmail">
+                    <Form.Group className="control-field" controlId="formBasicEmail">
                       <Form.Control
                         type="email"
                         name="email"
@@ -79,7 +81,7 @@ function LoginPage(props){
                       />
                     </Form.Group>
     
-                    <Form.Group controlId="formBasicPassword">
+                    <Form.Group className="control-field" controlId="formBasicPassword">
                       <Form.Control
                         type="password"
                         name="password"
