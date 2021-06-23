@@ -6,14 +6,17 @@ import 'fomantic-ui-css/semantic.min.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { PetContextProvider } from './context/pet-context';
+import { BusinessContextProvider } from './context/business-context';
 
 localStorage.setItem('StatusLogin',false)
 
 ReactDOM.render(
-  <PetContextProvider>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </PetContextProvider>,
-  document.getElementById('root')
+  <BusinessContextProvider>
+    <PetContextProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </PetContextProvider>
+  </BusinessContextProvider>,
+  document.getElementById("root")
 );

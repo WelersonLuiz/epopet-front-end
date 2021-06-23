@@ -13,7 +13,7 @@ import NotFoundPage from "../pages/notFoundPage/NotFoundPage";
 import LandingPage from "../pages/landingPage/LandingPage";
 import AboutPage from "../pages/aboutPage/AboutPage";
 import PlanosPage from "../pages/plansPage/PlansPage";
-import BusinessList from "../pages/BusinessList";
+import BusinessPage from "../pages/businessPage/BusinessPage";
 import PetListPage from "../pages/petsPage/pet-list-page";
 import PetFormPage from "../pages/petsPage/pet-form-page";
 import AppointmentPage from "../pages/appointmentPage/appointmentPage";
@@ -86,7 +86,7 @@ const Routes = () => (
                 exact
                 path={routePaths.businessList}
                 render={(props) => (
-                <BusinessList {...props}/>
+                <BusinessPage {...props}/>
                 )}
             />
             <PrivateRoute exact path="/pets" component={PetListPage} />

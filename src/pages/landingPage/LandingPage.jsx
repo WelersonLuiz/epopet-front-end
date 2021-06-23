@@ -29,6 +29,7 @@ class LandingPage extends Component {
               Somos um plano de saúde digital para animais de estimação.
               Oferecemos todo o carinho e proteção que o seu melhor amigo merece
               sem burocracia e sem surpresas na conta no final do mês.
+              <br />
               <Button href="/nos" style={{ maxHeight: "20%", maxWidth: "50%" }}>
                 Saiba mais
               </Button>
