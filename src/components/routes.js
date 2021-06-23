@@ -16,7 +16,7 @@ import PlanosPage from "../pages/plansPage/PlansPage";
 import BusinessPage from "../pages/businessPage/BusinessPage";
 import PetListPage from "../pages/petsPage/pet-list-page";
 import PetFormPage from "../pages/petsPage/pet-form-page";
-import AppointmentPage from "../pages/appointmentPage/AppointmentPage";
+import AppointmentPage from "../pages/appointmentPage/appointmentPage";
 
 const routePaths = {
     login: "/login",

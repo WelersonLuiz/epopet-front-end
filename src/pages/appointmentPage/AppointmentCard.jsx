@@ -7,7 +7,7 @@ const { useContext } = React;
 
 const AppointmentCard = ({ appointment }) => {
   const [state, dispatch] = useContext(AppointmentContext);
-
+  console.log(state)
   const newAppointmentPage = async (id) => {};
 
   return (
@@ -19,8 +19,8 @@ const AppointmentCard = ({ appointment }) => {
           </Card.Header>
           <Card.Description className="appointment-card-desc">
             <p>Serviço: {appointment.serviceType}</p>
-            <p>Clinica: {appointment.business.name}</p>
-            <p>Endereço: {appointment.business.address}</p>
+            <p>Clinica: PetCenter</p>
+            <p>Endereço: São Paulo</p>
           </Card.Description>
         </Card.Content>
         <Card.Content extra>
