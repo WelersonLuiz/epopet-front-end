@@ -1,27 +1,44 @@
-.LandingPage {
-    text-align: center;
-
-}
-.logo_main {
-    background-color: #BDF2ED;
-    position: absolute;
-    max-height: 60%;
-    width: 100%;
-    overflow-y: hidden;
+.img_logo {
+  position: absolute;
+  height: 160%;
+  top: -10%;
+  left: 45%;
 }
 
-.img_logo{
-    position: relative;
-    max-width: 40%;
-    max-height: 10%;
-    margin-top: -6% ;
-    /* margin-right:-5%; */
-    float: right;
+.img_nome_logo {
+  position: absolute;
+  height: 20%;
+  top: 20%;
+  left: 10%;
 }
 
-.img_nome_logo{
-    position: inherit;
-    max-width: 55%;
-    top: 25%;    
-    left: 8%;
+.banner {
+  position: relative;
+  height: 350px;
+  width: 100%;
+  background-color: #d7fadb;
+  overflow-y: hidden;
+  align-content: center;
+}
+
+.body {
+  align-content: center;
+}
+
+.about {
+  margin: auto;
+  width: 80%;
+  padding: 20px;
+}
+
+.description {
+  width: 50%;
+  float: left;
+  padding: 10px;
+}
+
+.desc-image {
+  width: 50%;
+  float: left;
+  padding: 10px;
 }

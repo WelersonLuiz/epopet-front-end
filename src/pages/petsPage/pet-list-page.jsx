@@ -5,6 +5,7 @@ import axios from 'axios';
 import PetList from '../../components/pet-list';
 import { PetContext } from '../../context/pet-context';
 import { FlashMessage, flashErrorMessage } from '../../components/flash-message';
+import { Header } from "../../components/common";
 
 const PetListPage = () => {
   const [state, dispatch] = useContext(PetContext);
@@ -14,7 +15,7 @@ const PetListPage = () => {
       try {
         var user = localStorage.getItem('user')
         const response = await axios
-          .get('http://localhost:8080/pet/'+JSON.parse(user).id)
+          .get('http://localhost:8080/pet/client/'+JSON.parse(user).id)
           .catch((error) => {
             if (error.response.data.errorCode === 1) {
               return { data: [] };
@@ -36,9 +37,10 @@ const PetListPage = () => {
 
   return (
     <div>
+      <Header/>
       <div className="ui two item menu">
         <NavLink className="item" activeClassName="active" exact to="/pets">
-          Pets List
+          Lista de Pets
         </NavLink>
         <NavLink
           className="item"
@@ -46,10 +48,10 @@ const PetListPage = () => {
           exact
           to="/pets/new"
         >
-          Add Pet
+          Adiciona Pet
         </NavLink>
       </div>
-      <h1>List of Pets</h1>
+      <h1>Seus Pets:</h1>
       {state.message.content && <FlashMessage message={state.message} />}
       <PetList pets={state.pets} />
     </div>

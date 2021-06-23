@@ -27,7 +27,7 @@ const routePaths = {
     plans: "/planos",
     businessList: "/rede-referenciada",
     pets: "/pets",
-    appointment:"/appointment"
+    appointment:"/agendamentos"
   }
 
 const Routes = () => (
@@ -69,11 +69,12 @@ const Routes = () => (
                 path={routePaths.dashboard}
                 component={DashboardPage}
             />
-            <AppointmentPage
+            <PrivateRoute
                 exact
                 path={routePaths.appointment}
-                component={DashboardPage}
+                component={AppointmentPage}
             />
+
             <Route
                 exact
                 path={routePaths.registration}

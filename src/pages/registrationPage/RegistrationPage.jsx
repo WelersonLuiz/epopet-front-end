@@ -169,7 +169,7 @@ class RegistrationPage extends Component {
   async validateEmail() {
     var isValid = false;
     var emailValue = this.state.data.email;
-    var emailPattern = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    var emailPattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     if (!emailPattern.test(emailValue)) {
       return
@@ -240,7 +240,7 @@ class RegistrationPage extends Component {
     console.log("Password Validation ", this.state.data.password);
     console.log("Password Validation Conf ", this.state.data.passwordConfirmation);
     var isValid = false;
-    if (this.state.password != this.state.passwordConfirmation) {
+    if (this.state.password !== this.state.passwordConfirmation) {
       this.setState({
         alert: {
           status: this.state.alert.status,
@@ -301,6 +301,7 @@ class RegistrationPage extends Component {
   
   componentDidMount() {
     document.body.style.backgroundColor = "#bdf2ed";
+    document.body.style.padding = "1em";
   }
   
   handleInputChangeCep = (e) => {

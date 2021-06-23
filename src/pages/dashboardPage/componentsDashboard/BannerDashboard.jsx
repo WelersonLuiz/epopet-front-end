@@ -15,7 +15,7 @@ export default function BannerDash(){
         <div className="logo_main">
             
             <img src={logobig} className="img_nome_logo" />
-            {/* <p>Olá {user.name}</p> */}
+            <p>Olá {user.name}</p>
         </div>
     )
 

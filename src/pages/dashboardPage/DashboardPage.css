@@ -1,0 +1,21 @@
+.loggedOptions {
+    height: 100px;
+}
+
+.loggedOptions button {
+    background-color: #04AA6D;
+    border: 1px solid green;
+    color: white;
+    padding: 10px 24px;
+    cursor: pointer;
+    width: 15%;
+    display: block;
+  }
+  
+  .loggedOptions button:not(:last-child) {
+    border-bottom: none;
+  }
+  
+  .loggedOptions button:hover {
+    background-color: #3e8e41;
+  }

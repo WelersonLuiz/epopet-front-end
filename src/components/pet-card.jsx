@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Card, Button, Icon } from 'semantic-ui-react';
 import  { PetContext }  from  '../context/pet-context';
 import  { flashErrorMessage }  from  './flash-message';
-
+import "./pet-card.css"
 const  { useContext }  =  React;
 
 const PetCard = ({ pet }) => {
@@ -26,8 +26,12 @@ const PetCard = ({ pet }) => {
     }
   };
 
+  const newAppointmentPage = async id => {
+
+  }
+
   return (
-    <Card>
+    <Card style={{width:"25%"}}>
       <Card.Content>
         <Card.Header>
           <Icon name="user outline" /> {pet.name}
@@ -48,11 +52,15 @@ const PetCard = ({ pet }) => {
             color="green"
             as={Link}
             to={`/pets/edit/${pet.id}`}
+            className='petCardButton'
           >
             Edit
           </Button>
-          <Button basic color="red" onClick={() => deletePet(pet.id)}>
+          <Button basic color="red" className='petCardButton' onClick={() => deletePet(pet.id)}>
             Delete
+          </Button>
+          <Button basic color="blue" className='petCardButton' onClick={() => newAppointmentPage(pet.id)}>
+            Agendar Consulta
           </Button>
         </div>
       </Card.Content>

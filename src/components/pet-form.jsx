@@ -6,17 +6,25 @@ import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import { PetContext } from '../context/pet-context';
 import { flashErrorMessage } from './flash-message';
+import {Context} from './authContext'
+
 
 const PetForm = ({pet}) => {
   const [state, dispatch] = useContext(PetContext);
+  const {user} = useContext(Context)
   const [redirect, setRedirect] = useState(false);
   const { register, errors, handleSubmit } = useForm({
     defaultValues: pet,
   });
 
   const createPet = async data => {
+
+    
+    data['id_client'] = user.id
+    console.log('Criando Pet',data)
     try {
       const response = await axios.post('http://localhost:8080/pet', data);
+      console.log('Responose',response)
       dispatch({
         type: 'CREATE_PET',
         payload: response.data,
@@ -44,16 +52,19 @@ const PetForm = ({pet}) => {
   };
 
   const onSubmit = async data => {
+    console.log('Inicio cadastro',data,pet)
     if (pet.id) {
+      console.log('Update pet',data,pet)
       data.id = pet.id;
       await updatePet(data);
     } else {
+      console.log('Cria pet',data,pet)
       await createPet(data);
     }
   };
 
   if (redirect) {
-    return <Redirect to="/" />;
+    return <Redirect to="/pets" />;
   }
 
   return (
@@ -66,7 +77,7 @@ const PetForm = ({pet}) => {
           <Form.Group widths="equal">
             <Form.Field className={classnames({ error: errors.name })}>
               <label htmlFor="name">
-                Name
+                Nome:
                 <input
                   id="name"
                   name="name"
@@ -86,10 +97,32 @@ const PetForm = ({pet}) => {
                   'Must be 2 or more characters'}
               </span>
             </Form.Field>
+            <Form.Field className={classnames({ error: errors.name })}>
+              <label htmlFor="name">
+                Peso:
+                <input
+                  id="peso"
+                  name="peso"
+                  type="text"
+                  placeholder="Peso"
+                  ref={register({ required: true, minLength: 2 })}
+                />
+              </label>
+              <span className="error">
+                {errors.name &&
+                  errors.name.type === 'required' &&
+                  'You need to provide Name'}
+              </span>
+              <span className="error">
+                {errors.name &&
+                  errors.name.type === 'minLength' &&
+                  'Must be 2 or more characters'}
+              </span>
+            </Form.Field>
           </Form.Group>
           <Form.Field className={classnames({ error: errors.species })}>
             <label htmlFor="species">
-              Species
+              Espécie:
               <input
                 id="species"
                 name="species"
@@ -106,9 +139,13 @@ const PetForm = ({pet}) => {
                 'You need to provide a Species'}
             </span>
           </Form.Field>
-          <Button primary type="submit">
-            Save
+          <Button primary type="button" onClick={() => (setRedirect(true))}>
+            Cancelar
           </Button>
+          <Button primary type="submit">
+            Salvar
+          </Button>
+
         </Form>
       </Grid.Column>
     </Grid>

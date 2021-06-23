@@ -27,12 +27,12 @@ function AuthProvider({children}) {
     
     async function handleLogin(e){
         var userData = {email:null, password:null};
-        await axios.get("http://localhost:8080/client/email/" + e.email).then(response => {
-            userData = response.data
-        }).catch( error => {
-            console.debug('Erro',error)
-        }           
-        )
+        await axios.get("http://localhost:8080/client/email/" + e.email)
+            .then(response => {
+                userData = response.data
+            }).catch(error => {
+                console.debug('Erro', error)
+            })
         console.log(userData)
         
         if(userData.email === e.email & userData.password === e.password){
