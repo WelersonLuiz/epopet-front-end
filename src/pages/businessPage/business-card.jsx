@@ -36,7 +36,7 @@ const BusinessCard = ({ business }) => {
               Agendar Consulta
             </Button>
           </div>
-        </Card.Content>
+        </Card.Content> 
       </Card>
     </div>
   );

@@ -4,9 +4,9 @@ import { useForm } from 'react-hook-form';
 import classnames from 'classnames';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
-import { PetContext } from '../context/pet-context';
-import { flashErrorMessage } from './flash-message';
-import {Context} from './authContext'
+import { PetContext } from '../../context/pet-context';
+import { flashErrorMessage } from '../../components/flash-message';
+import {Context} from '../../components/authContext'
 
 
 const PetForm = ({pet}) => {

@@ -102,8 +102,6 @@ const BusinessPage = () => {
         <div className="business-list-results">
           <BusinessList businesses={businesses} />
         </div>
-        <div className=""></div>
-        <div className=""></div>
       </div>
     </div>
   );
