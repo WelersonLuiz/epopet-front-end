@@ -4,45 +4,47 @@ import { useForm } from 'react-hook-form';
 import classnames from 'classnames';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
-import { PetContext } from '../context/pet-context';
+import { AppointmentContext } from '../context/appointment-context';
 import { flashErrorMessage } from './flash-message';
 import {Context} from './authContext'
 
 
-const PetForm = ({pet}) => {
-  const [state, dispatch] = useContext(PetContext);
+const AppointForm = ({appoint}) => {
+  const [state, dispatch] = useContext(AppointmentContext);
   const {user} = useContext(Context)
   const [redirect, setRedirect] = useState(false);
   const { register, errors, handleSubmit } = useForm({
-    defaultValues: pet,
+    defaultValues: appoint,
   });
 
-  const createPet = async data => {
+  const createAppointment = async data => {
 
     
-    data['id_client'] = user.id
-    console.log('Criando Pet',data)
+    data['id_pet'] = localStorage.getItem('pet')
+    console.log('Criando novo agendamento',data)
     try {
-      const response = await axios.post('http://localhost:8080/pet', data);
+      const response = await axios.post('http://localhost:8080/appointment', data);
       console.log('Responose',response)
       dispatch({
-        type: 'CREATE_PET',
+        type: 'CREATE_APPOINTMENT',
         payload: response.data,
       });
       setRedirect(true);
     } catch (error) {
       flashErrorMessage(dispatch, error);
     }
+
+    localStorage.removeItem('pet')
   };
 
-  const updatePet = async data => {
+  const updateAppointment = async data => {
     try {
       const response = await axios.put(
-        `http://localhost:8080/pet`,
+        `http://localhost:8080/appointment`,
         data,
       );
       dispatch({
-        type: 'UPDATE_PET',
+        type: 'UPDATE_APPOINTMENT',
         payload: response.data,
       });
       setRedirect(true);
@@ -52,26 +54,26 @@ const PetForm = ({pet}) => {
   };
 
   const onSubmit = async data => {
-    console.log('Inicio cadastro',data,pet)
-    if (pet.id) {
-      console.log('Update pet',data,pet)
-      data.id = pet.id;
-      await updatePet(data);
+    console.log('Inicio cadastro',data)
+    if (appoint.id) {
+      console.log('Update Agendamento',data,appoint)
+      data.id = appoint.id;
+      await updateAppointment(data);
     } else {
-      console.log('Cria pet',data,pet)
-      await createPet(data);
+      console.log('Cria Agendamento',data,appoint)
+      await createAppointment(data);
     }
   };
 
   if (redirect) {
-    return <Redirect to="/pets" />;
+    return <Redirect to="/agendamentos" />;
   }
 
   return (
     <Grid centered columns={2}>
       <Grid.Column>
         <h1 style={{ marginTop: "1em" }}>
-          {pet.id ? "Editar Pet" : "Adicionar novo Pet"}
+          {appoint.id ? "Editar Agendamento" : "Criar novo Agendamento"}
         </h1>
         <Form onSubmit={handleSubmit(onSubmit)} loading={state.loading}>
           <Form.Group widths="equal">
@@ -173,4 +175,4 @@ const PetForm = ({pet}) => {
   );
 }
 
-export default PetForm;
+export default AppointForm;
