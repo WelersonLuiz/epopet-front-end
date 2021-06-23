@@ -1,0 +1,18 @@
+.pet-card {
+  width: 100%;
+  float: left;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.pet-card-header {
+  height: auto;
+}
+
+.pet-card-desc {
+  width: 100%;
+}
+
+.pet-card-button {
+  color: gray;
+}

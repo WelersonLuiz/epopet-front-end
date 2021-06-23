@@ -1,0 +1,15 @@
+.appointment-card {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  opacity: 0.9;
+}
+
+.appointment-card-header {
+  height: auto;
+}
+
+.appointment-card-desc {
+  width: 100%;
+}

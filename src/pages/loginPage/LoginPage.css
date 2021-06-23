@@ -1,0 +1,113 @@
+.container {
+  text-align: center;
+  background-color: #80b88d;
+  position: fixed;
+  min-width: 100%;
+  min-height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+.container_login_imagem {
+  position: absolute;
+  left: 20%;
+  top: 15%;
+  width: 32.1%;
+  height: 67%;
+  float: left;
+  border-bottom-left-radius: 10%;
+  border-top-left-radius: 10%;
+  overflow: hidden;
+  background-color: #007782;
+}
+
+.login_imagem {
+  max-width: "95%";
+  max-height: "95%";
+  margin: "2.5%";
+  padding: 10px;
+  max-height: 95%;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.container_login_imagem_img {
+  background-image: url(../../images/login_image.png);
+  background-size: contain;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.container_login_form {
+  position: absolute;
+  right: 20%;
+  top: 15%;
+  background-color: white;
+  width: 27.9%;
+  height: 67%;
+  float: right;
+  border-bottom-right-radius: 10%;
+  border-top-right-radius: 10%;
+}
+
+.container_login_form_welcome {
+  position: inherit;
+  top: 5%;
+  left: 0%;
+  background-color: #007782;
+  height: 10%;
+  width: 50%;
+  color: white;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+}
+
+.container_login_form_welcome h3 {
+  position: inherit;
+  padding: 10px;
+}
+
+.botao_login {
+  position: absolute;
+  left: 30%;
+  bottom: 35%;
+  width: 40%;
+  border-radius: 25px;
+  background-color: #007782;
+  border-color: #007782;
+}
+
+.criar_conta {
+  position: absolute;
+  left: 0px;
+  bottom: 15%;
+  width: 100%;
+  color: #007782;
+}
+
+.esqueceu_senha {
+  position: absolute;
+  left: 0px;
+  bottom: 0%;
+  width: 100%;
+  color: #007782;
+}
+
+.connect-label {
+  color: #007782;
+}
+
+.control-field {
+  padding: 10px;
+}
+
+.container_login_form_preenche {
+  position: absolute;
+  top: 25%;
+  left: 5%;
+  right: 5%;
+  bottom: 10%;
+}

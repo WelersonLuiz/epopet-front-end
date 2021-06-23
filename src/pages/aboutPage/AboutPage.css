@@ -1,0 +1,61 @@
+.AboutPageEsquerda {
+    position: absolute;
+    left: 15%;
+    top: 15%;
+    width: 28.4%;
+    height: 59.4%;
+    float: left;
+
+}
+
+.AboutPageEsquerdaImg {
+    background-image: url(../../images/login_image.png);
+    background-size: contain;
+    background-position: center;
+    position:relative;
+    width: 50%;
+    height: 50%;
+}
+
+.AboutPageDireita {
+    position: absolute;
+    right: 5%;
+    top: 15%;
+    width: 50%;
+    height: 70%;
+    float: right;
+    font-size:50%;
+
+}
+
+.AboutContainer{
+    text-align: center;
+    position: fixed;
+    min-width: 100%;
+    min-height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-color:#BDF2ED;
+}
+.AboutContainer h3{
+    color: rgb(16, 46, 1);
+}
+.AboutContainer p{
+    color: rgb(16, 46, 1);
+}
+
+.AboutContainerCarousel{
+    color: rgb(16, 46, 1);
+}
+
+
+.AboutPageDireitaTxt {
+    position: relative;
+    top: 10%;
+    left: 10%;
+    height: 80%;
+    width: 80%;
+    align-items: center;
+    text-align: justify;
+    
+}
