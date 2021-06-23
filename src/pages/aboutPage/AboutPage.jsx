@@ -19,15 +19,16 @@ class AboutPage extends Component {
       <div>
         <Header />
         <div className="AboutContainer">
-          <Carousel style={{ margin: "10%" }}>
-            <Carousel.Item>
+          <Carousel  style={{ margin: "10%"}}>
+            <Carousel.Item  >
               <img
+                variant="top"
                 className="AboutPageEsquerdaImg"
                 src={img_pigmeu}
                 alt="First slide"
                 style={{ maxHeight: "30%", maxWidth: "30%" }}
               />
-              <Carousel.Caption >
+              <Carousel.Caption  >
                 <h3> Quem Somos?</h3>
                 <p className= "AboutPageDireitaTxt" style={{ textAlign: "justify" }}>
                   O plano de saúde para pets Epopet nasceu com a missão de aprimorar o encaminhamento do cliente à consultas 

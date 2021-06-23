@@ -12,6 +12,7 @@
     background-image: url(../../images/login_image.png);
     background-size: contain;
     background-position: center;
+    position:relative;
     width: 50%;
     height: 50%;
 }
@@ -33,13 +34,17 @@
     min-height: 100%;
     background-size: cover;
     background-position: center;
-    background-color: white;
+    background-color:#BDF2ED;
 }
 .AboutContainer h3{
-    color: red;
+    color: rgb(16, 46, 1);
 }
 .AboutContainer p{
-    color: black;
+    color: rgb(16, 46, 1);
+}
+
+.AboutContainer Carousel{
+    color: rgb(16, 46, 1);
 }
 
 
