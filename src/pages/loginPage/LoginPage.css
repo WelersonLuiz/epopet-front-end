@@ -21,6 +21,17 @@
   background-color: #007782;
 }
 
+.login_imagem {
+  max-width: "95%";
+  max-height: "95%";
+  margin: "2.5%";
+  padding: 10px;
+  max-height: 95%;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .container_login_imagem_img {
   background-image: url(../../images/login_image.png);
   background-size: contain;

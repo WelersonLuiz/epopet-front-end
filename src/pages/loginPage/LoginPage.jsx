@@ -58,7 +58,7 @@ function LoginPage(props){
                   {/* <div className='container_login_imagem_img'></div> */}
                   <Card.Img
                     src={logo_login}
-                    style={{ maxWidth: "95%", maxHeight: "95%", margin: "2.5%" }}
+                    className="login_imagem"
                   ></Card.Img>
                 </div>
               </Link>
