@@ -26,6 +26,7 @@ function Header(props) {
   }
 
   return (
+
     <div>
       <Navbar bg="light" expand="lg" className="nav-bar">
         <Navbar.Brand href="/" className="brand">
@@ -42,6 +43,8 @@ function Header(props) {
             <Nav.Link href="/dashboard">Home</Nav.Link>
             <Nav.Link href="/nos">Nós</Nav.Link>
             <Nav.Link href="/rede-referenciada">Rede Referenciada</Nav.Link>
+            {(authenticated) ? <Nav.Link href="/pets">Pets</Nav.Link>: ''}
+            {(authenticated) ? <Nav.Link href="/agendamentos">Agendamentos</Nav.Link>:''}
             <Nav.Link onClick={() => handleClick()}>{buttonName}</Nav.Link>
           </Nav>
         </Navbar.Collapse>

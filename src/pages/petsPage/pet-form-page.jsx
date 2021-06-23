@@ -3,7 +3,7 @@ import axios from 'axios';
 import PetForm from '../../components/pet-form';
 import { flashErrorMessage } from '../../components/flash-message';
 import { PetContext } from '../../context/pet-context';
-
+import { Header } from "../../components/common";
 const PetFormPage = ({ match }) => {
   const [state, dispatch] = useContext(PetContext);
   const [loading, setLoading] = useState(true);

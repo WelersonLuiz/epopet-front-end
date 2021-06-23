@@ -16,6 +16,7 @@ import PlanosPage from "../pages/plansPage/PlansPage";
 import BusinessList from "../pages/BusinessList";
 import PetListPage from "../pages/petsPage/pet-list-page";
 import PetFormPage from "../pages/petsPage/pet-form-page";
+import AppointmentPage from "../pages/appointmentPage/appointmentPage";
 
 const routePaths = {
     login: "/login",
@@ -26,6 +27,7 @@ const routePaths = {
     plans: "/planos",
     businessList: "/rede-referenciada",
     pets: "/pets",
+    appointment:"/agendamentos"
   }
 
 const Routes = () => (
@@ -67,6 +69,12 @@ const Routes = () => (
                 path={routePaths.dashboard}
                 component={DashboardPage}
             />
+            <PrivateRoute
+                exact
+                path={routePaths.appointment}
+                component={AppointmentPage}
+            />
+
             <Route
                 exact
                 path={routePaths.registration}
