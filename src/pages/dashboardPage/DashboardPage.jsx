@@ -8,9 +8,6 @@ function DashboardPage(props) {
   return (
     <div>
       <LandingPage />
-      <div className="loggedOptions">
-        <button onClick={() => props.history.push("/pets")}>Pets</button>
-      </div>
     </div>
   );
 }
