@@ -1,19 +1,21 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { Header } from "../../components/common";
-import BusinessList from './business-list';
+import { Header, SearchBar } from "../../components/common";
+import BusinessList from "./business-list";
 import { BusinessContext } from "../../context/business-context";
-import { flashErrorMessage } from '../../components/flash-message';
-import './BusinessPage.css';
+import { flashErrorMessage } from "../../components/flash-message";
+
+import "./BusinessPage.css";
 
 const BusinessPage = () => {
   const [state, dispatch] = useContext(BusinessContext);
+  const [businesses = [], setBusinesses] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios
-          .get('http://localhost:8080/business')
+          .get("http://localhost:8080/business")
           .catch((error) => {
             if (error.response.data.errorCode === 1) {
               return { data: [] };
@@ -21,44 +23,29 @@ const BusinessPage = () => {
               throw error;
             }
           });
-        console.log("Response ", response)
+        console.log("Response ", response);
         dispatch({
-          type: 'FETCH_BUSINESSES',
+          type: "FETCH_BUSINESSES",
           payload: response.data.data || response.data,
         });
-        this.setState({
-          businessList: response.data
-        });
+        setBusinesses(response.data);
       } catch (error) {
         flashErrorMessage(dispatch, error);
       }
     };
     fetchData();
   }, [dispatch]);
+
+  const updateInput = async (e) => {
+    var input = e.target.value;
+    const filtered = state.businesses.filter((business) => {
+      return business.name.toLowerCase().includes(input.toLowerCase());
+    });
+    setBusinesses(filtered);
+  };
   
-  // state = {
-  //   selectedBusiness: {},
-  //   businessList: [],
-  // };
+  const BarStyling = {width:"100%",background:"#F2F1F9", border:"none", padding:"0.5rem"};
 
-
-  // async onChal
-  // async getBusinessList(){
-  //   await axios
-  //     .get("http://localhost:8080/business")
-  //     .then((response) => {
-  //       this.setState({ businessList: response.data });
-  //     })
-  //     .catch((error) => {
-  //       console.log("register error", error);
-  //     });
- 
-  // };
-
-  // async componentDidMount() {   
-  //   await this.getBusinessList();
-    
-  // }
   return (
     <div>
       <Header />
@@ -68,7 +55,12 @@ const BusinessPage = () => {
         </div>
         <div className="business-list-filters">
           <div className="bussiness-list-search-box">
-            {/* <SearchBar input={input} onChange={updateInput} /> */}
+            <input
+              style={BarStyling}
+              key="random1"
+              placeholder={"Procurar Estabelecimento"}
+              onChange={updateInput}
+            />
           </div>
 
           <select name="states" id="states">
@@ -108,13 +100,13 @@ const BusinessPage = () => {
           </select>
         </div>
         <div className="business-list-results">
-          <BusinessList businesses={state.businesses} />
+          <BusinessList businesses={businesses} />
         </div>
         <div className=""></div>
         <div className=""></div>
       </div>
     </div>
   );
-}
+};
 
 export default BusinessPage;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SearchBar = ({keyword,setKeyword}) => {
+const SearchBar = () => {
   const BarStyling = {width:"100%",background:"#F2F1F9", border:"none", padding:"0.5rem"};
   return (
     <input 

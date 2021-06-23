@@ -1,8 +1,9 @@
 .business-list-body {
   background-image: url("../../images/map-image.jpg");
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: auto;
   background-attachment: fixed;
+  min-height: 800px;
 }
 
 .business-list-title {
