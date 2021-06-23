@@ -12,8 +12,7 @@ function DashboardPage(props){
       <div>
         <Header/>
         <BannerDash/>
-        <button onClick={() => handleLogout()}>Logout</button>
-        <button onClick={() => props.history.push('/pets')}>Pets</button>
+        
       </div>
   )
 }

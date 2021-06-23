@@ -39,7 +39,7 @@ function Header(props) {
   );}else{
     return (
     <Navbar bg="light" expand="lg">
-    <Navbar.Brand href="/">
+    <Navbar.Brand href="/dashboard">
       <img
         src={logosmall}
         style={{ maxWidth: "50%" }}
