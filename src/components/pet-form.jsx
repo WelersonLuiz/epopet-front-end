@@ -71,7 +71,7 @@ const PetForm = ({pet}) => {
     <Grid centered columns={2}>
       <Grid.Column>
         <h1 style={{ marginTop: "1em" }}>
-          {pet.id ? "Edit Pet" : "Add New Pet"}
+          {pet.id ? "Editar Pet" : "Adicionar novo Pet"}
         </h1>
         <Form onSubmit={handleSubmit(onSubmit)} loading={state.loading}>
           <Form.Group widths="equal">
